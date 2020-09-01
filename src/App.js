@@ -1,15 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Navbar from './Navbar';
-import Container from './Container';
+import Container from './components/Container';
 
 function App() {
   return (
     
-    <div className="App">
+    <div className="App wrapper">
       <div className="container-fluid">
+        <div className="row">
           <Container />
+        </div>
       </div>
       
       {/* <header className="App-header">
