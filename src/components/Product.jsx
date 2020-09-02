@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { chunk } from '../services/common';
 
-const Products = ({productData, cartData, addToCart, removeFromCart}) => {
+const Product = ({productData, cartData, addToCart, removeFromCart}) => {
     const products = productData.map((product) => {
         const inCart = cartData.find((item) => item.productId === product.id);
         if(inCart) {
@@ -10,17 +10,17 @@ const Products = ({productData, cartData, addToCart, removeFromCart}) => {
         }
         return product;
     })
-    const productsGrid = chunk(products, 4);
+    const productsGrid = chunk(products, 6);
     return (
         <React.Fragment>
             {productsGrid.map((products, index) => (
                 <div className="row pb-2" key={index}>
                     {products.map((product) => (
-                        <div key={product.id} className="col-md-3">
+                        <div key={product.id} className="col-sm-2">
                             <Card key={product.id}>
                                 <Card.Img variant="top" src={product.img} />
                                 <Card.Body>
-                                    <Card.Title>
+                                    <Card.Title className="h6">
                                         {product.name}
                                         &nbsp;
                                         <OverlayTrigger
@@ -59,4 +59,4 @@ const Products = ({productData, cartData, addToCart, removeFromCart}) => {
      );
 }
  
-export default Products;
+export default Product;

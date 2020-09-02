@@ -1,9 +1,13 @@
-const cart = [
+import user from './user.js'
+
+const { cart } = user
+
+//const cart = [
     // {
     //     "productId": "3",
     //     "selectedItems": 2
     // }
-]
+//]
 
 
 export function getCartItems() {

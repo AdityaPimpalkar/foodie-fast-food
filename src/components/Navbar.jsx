@@ -10,13 +10,16 @@ const Navbar = (props) => {
             
             
             <div className="navbar-nav ml-auto">
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <div className="collapse navbar-collapse">
+                    <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                         <Link className="nav-item nav-link home" to="/">
                             <i className="fa fa-home fa-lg"></i> &nbsp;
                         </Link>
+                        <Link className="nav-item nav-link home" to="/" title="Orders">
+                            <i className="fa fa-shopping-bag fa-lg"></i>
+                        </Link>
                         <Link className="nav-item nav-link cart" to="/cart">
-                            <i className="fa fa-shopping-cart fa-lg"></i> &nbsp; <span className="badge badge-primary">{totalCartItems > 0 ? totalCartItems:null }</span>
+                            <i className="fa fa-shopping-cart fa-lg"></i> &nbsp;<span className="badge badge-primary">{totalCartItems > 0 ? totalCartItems:null }</span>
                         </Link>
                     </ul>
                 </div>

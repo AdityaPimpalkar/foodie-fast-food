@@ -5,7 +5,7 @@ import { getProducts } from '../services/product';
 import Cart from './Cart';
 import Navbar from './Navbar';
 //import Sidenavbar from './Sidenavbar';
-import Products from './Products';
+import Product from './Product';
 import { deleteFromCart } from './../services/cart';
 
 
@@ -55,7 +55,7 @@ class Container extends Component {
                         /> */}
                         <Switch>
                             <Route path="/" exact >
-                                <Products
+                                <Product
                                     productData={products}
                                     cartData={cart}
                                     addToCart={this.addToCart}

@@ -38,6 +38,14 @@ const products = [
         "desc": "Grilled chicken with extra Bacon and cheese burger",
         "img":"/images/burger5.jpg",
         "price":110
+    },
+    {
+        "id": "6",
+        "type": "Burger",
+        "name": "FFF Chicken",
+        "desc": "Grilled chicken with extra Bacon and cheese burger",
+        "img":"/images/burger6.jpg",
+        "price":105
     }
 ]
 
