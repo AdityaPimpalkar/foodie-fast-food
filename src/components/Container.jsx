@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
-import { getCartItems, getTotalItems, addToCart, removeFromCart } from '../services/cart';
+import { getCartItems, getTotalItems, addToCart, removeFromCart, deleteFromCart } from '../services/cart';
 import { getProducts } from '../services/product';
+import user  from '../services/user.js'
 import Cart from './Cart';
 import Navbar from './Navbar';
 //import Sidenavbar from './Sidenavbar';
 import Product from './Product';
-import { deleteFromCart } from './../services/cart';
 
 
 class Container extends Component {
     state = {
         products: [],
         cart: [],
+        user: {},
         totalItems: 0
     }
     
@@ -20,6 +21,7 @@ class Container extends Component {
         this.setState({
             products: getProducts(),
             cart: getCartItems(),
+            user: user,
             totalItems: getTotalItems()
         });
     }
@@ -40,7 +42,7 @@ class Container extends Component {
     }
 
     render() {
-        const { products, cart, totalItems } = this.state; 
+        const { products, cart, user, totalItems } = this.state; 
         return (
             <React.Fragment>
             {/* <Sidenavbar totalCartItems={totalItems} /> */}
@@ -69,6 +71,7 @@ class Container extends Component {
                                     addToCart={this.addToCart}
                                     removeFromCart={this.removeFromCart}
                                     deleteFromCart={this.deleteFromCart}
+                                    addressData={user.addresses}
                                 />    
                             </Route>
                             <Redirect to="/not-found" />
