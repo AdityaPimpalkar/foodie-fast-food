@@ -1,13 +1,14 @@
 import user from './user.js'
 
-const { addresses } = user;
+let { addresses } = user;
 
 export const addressObj = {
     id:"",
     addressLine1:"",
     addressLine2:"",
     landmark:"",
-    city:""
+    city:"",
+    isdefault: false
 }
 
 export function getAddress() {
@@ -15,24 +16,31 @@ export function getAddress() {
 }
 
 export function getAddressById(addressId) {
-    return addresses.saved.filter((address) => address.id === addressId);
+    return addresses.filter((address) => address.id === addressId);
 }
 
 export function saveAddress(address) {
-    if(address.id === "") {
-        const newId = (addresses.length+1).toString();
-        address = { id: newId, ...address}
-        addresses.default = newId;
-        addresses.saved.push(address)
+    addresses.forEach(function(key){
+        key.isdefault = false;
+    });
+    
+    if(address.id === "0") {
+        const newId = addresses.length+1;
+        address.id = newId.toString()
+        address.isdefault = true;
+        addresses.push(address)
+        return address
     } else {
-        const addressInDB = addresses.saved.find((savedaddress) => savedaddress.id === address.id)
-        const index = addresses.saved.indexOf(addressInDB)
+        const addressInDB = addresses.find((savedaddress) => savedaddress.id === address.id)
+        const index = addresses.indexOf(addressInDB)
         addressInDB.id = address.id
         addressInDB.addressLine1 = address.addressLine1
         addressInDB.addressLine2 = address.addressLine2
         addressInDB.landmark = address.landmark
         addressInDB.city = address.city
-        addresses.saved[index] = addressInDB
+        addressInDB.isdefault = true;
+        addresses[index] = addressInDB
+        return addressInDB
     }
     
 }

@@ -1,128 +1,109 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react";
 import Address from "./Address";
+import { getProducts } from '../services/product';
+import { addToCart, removeFromCart, deleteFromCart, getCartItems } from '../services/cart';
+import { getAddress } from "../services/address";
+import CartProducts from "./CartProducts";
+import CartSummary from "./CartSummary";
 
+class Cart extends Component {
+    state = {
+        products: [],
+        cart: [],
+        address: [],
+        deliveryaddress: {},
+        grandtotal: 0
+    }
+    componentDidMount() {
+        let products = getProducts();
+        let cart = getCartItems();
+        let address = getAddress();
+        let deliveryaddress = this.setDeliveryAddress(address);
+        products = this.mapProducts(cart,products);
+        this.setState({ products, cart, address, deliveryaddress })
+    }
+    mapProducts = (cart,products) => {
+        let grandtotal = 0;
+        products = cart.map((cartObj) => {
+            let product = products.find(
+                (product) => product.id === cartObj.productId
+            );
+            product = { ...product, total:product.price*cartObj.selectedItems, selectedItems: cartObj.selectedItems };
+            grandtotal += product.total;
+            return product;
+        });
+        this.setState({ grandtotal });
+        return products;
+    }
 
-const Cart = ({ productData,cartData,addToCart,removeFromCart,deleteFromCart,addressData }) => {
-    let grandTotal = 0;
-    const products = cartData.map((cartObj) => {
-    let product = productData.find(
-      (product) => product.id === cartObj.productId
-    );
-    product = { ...product, selectedItems: cartObj.selectedItems };
-    return product;
-  })
+    setDeliveryAddress = (addressData) => {
+        let address = addressData.find((address) => address.isdefault === true)
+        address = address ? address: {}
+        return address
+    }
 
-  function totalPrice (price,totalItems) {
-    grandTotal += price*totalItems
-    return price*totalItems
-  }
+    changeDeliveryAddress = (address) => {
+        const addresses = [...this.state.address]
+        const index = addresses.indexOf(address);
+        addresses.forEach(function(key){
+            key.isdefault = false;
+        });
+        addresses[index].isdefault = true;
+        this.setState({ address:addresses,deliveryaddress:address })
+    }
 
-  return (
-    <React.Fragment>
-      
-      <div className="row">
-        <div className="col-sm-8">
-          <div className="card-header h5 text-left">My Cart</div>
-          {products.length > 0 ?
+    addToCart = (product) => {
+        const cart = addToCart(product)
+        const products = this.mapProducts(cart,this.state.products)
+        this.props.handleCartCount();
+        this.setState({ products, cart });
+    }
 
-            products.map((product) => (
-                <div className="card text-left" key={product.id}>
-                    <div className="card-body">
-                    <img src={product.img} className="float-left col-sm-1" alt=""></img>
-                    <h5 className="card-title float-left mt-2">
-                        {product.name} 
-                        {/* {totalPrice(product.price,product.selectedItems)} */}
-                    </h5>
-                    <div className="col-sm-3 float-right">
-                        <button
-                            className="btn btn-primary float-left mr-2"
-                            onClick={() => addToCart(product)}
-                        >
-                        <i className="fa fa-plus"></i>
-                        </button>
-                        <span className="mt-1 float-left mr-2">
-                            {product.selectedItems ? product.selectedItems : 0}
-                        </span>
-                        <button
-                            className="btn btn-info mr-3"
-                            onClick={() => removeFromCart(product)}
-                            disabled={product.selectedItems ? false : true}
-                        >
-                        <i className="fa fa-minus"></i>
-                        </button>
-                        <button
-                            className="btn btn-danger"
-                            onClick={() => deleteFromCart(product)}
-                        >
-                        <i className="fa fa-trash"></i>
-                        </button>
-                    </div>
-                    </div>
-                </div>
-            ))
+    removeFromCart = (product) => {
+        const cart = removeFromCart(product);
+        const products = this.mapProducts(cart,this.state.products)
+        this.props.handleCartCount();
+        this.setState({ products, cart });
+    }
 
-            :
-            
-            <div className="card">
-                <div className="card-body">
-                <h5 className="card-title">Your cart is empty!</h5>
-                    <Link to="/">
-                        <button className="btn btn-primary">Add</button>
-                    </Link>
-                </div>
-            </div>
-          }
+    deleteFromCart = (product) => {
+        const cart = deleteFromCart(product);
+        const products = this.mapProducts(cart,this.state.products)
+        this.props.handleCartCount();
+        this.setState({ products, cart });
+    }
 
-          {products.length > 0 ?
-            <Address addressData={addressData} isdelete={false} />
-            :
-            null
-          }
-        </div>
-        
-        
-        <div className="col-sm-4">
-            <div className="card text-left sticky-top">
-            {products.length > 0 ?
-
-                <div className="card-body">
-                    <h5 className="card-title text-center">Summary</h5>
-                    {products.map((product) => (
-                        <div className="card-text h6" key={product.id}>
-                            <div className="col mb-2">
-                                {product.name}
-                                <span className="float-right">₹{totalPrice(product.price,product.selectedItems)}</span>
-                            </div>
-                        </div>
-                    ))}
-                    <hr/>
-                    <div className="card-text h5">
-                        <div className="col mb-2">
-                            Total
-                            <span className="float-right"><h4>₹{grandTotal}</h4></span>
-                        </div>
-                    </div>
-                    <span className="btn btn-success btn-block">
-                    Place Order
-                    </span>
+    render() {
+        const { products, address, grandtotal } = this.state;
+        return ( 
+            <React.Fragment>
+                <div className="row">
+                <div className="col-sm-8">
+                    <div className="card-header h5 text-left">My Cart</div>
+                    <CartProducts
+                        products={products}
+                        addToCart={this.addToCart}
+                        removeFromCart={this.removeFromCart}
+                        deleteFromCart={this.deleteFromCart}
+                    />
+                    {products.length > 0 ?
+                    <Address
+                        addressData={address}
+                        isdelete={false} 
+                        selectedAddress={this.changeDeliveryAddress} 
+                    />
+                    :
+                    null
+                    }
                 </div>
                 
-                :
-
-                <div className="card-body text-center">
-                    <h5 className="card-title">Summary</h5>
-                    <p className="card-text">
-                        No items in cart!
-                    </p>
+                <CartSummary products={products} grandtotal={grandtotal} />
+                
                 </div>
-            }
-            
-            </div>
-        </div>
-      </div>
-    </React.Fragment>
-  );
-};
-
+            </React.Fragment>
+         );
+    }
+}
+ 
 export default Cart;
+

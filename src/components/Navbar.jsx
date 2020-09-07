@@ -1,9 +1,10 @@
+// import React, { Component } from 'react';
 import React from 'react';
 import { Link } from 'react-router-dom';
+// import { getTotalItems } from '../services/cart';
 
-const Navbar = (props) => {
-    const { totalCartItems } = props;
-    return ( 
+ const Navbar = ({ totalCartItems }) => {
+     return ( 
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style={{zIndex:"auto"}}>
             <span className="navbar-brand col-sm-3 col-md-2 mr-0 ">foodie fast foods</span>
             {/* <input className="form-control form-control-dark w-100" type="search" placeholder="Search" aria-label="Search" /> */}
@@ -29,7 +30,8 @@ const Navbar = (props) => {
             </div>
         </nav>
 
-     );
-}
+    );
+ }
  
-export default Navbar;
+ export default Navbar;
+
