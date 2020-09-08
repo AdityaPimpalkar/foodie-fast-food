@@ -87,7 +87,7 @@ class Address extends Form {
             <div className="card">
             <div className="card-header h5 text-left">Address</div>
             <div className="card-body text-left">
-            <h5 className="card-title">Your addresses</h5>
+            <h5 className="card-title">My addresses</h5>
             <UserAddress 
                 addressData={addressData}
                 selectedAddress={this.selectedAddress}
@@ -104,7 +104,10 @@ class Address extends Form {
                 toggleClose={this.toggleClose}
             />
             :
-            <button className="btn btn-primary" onClick={this.toggleOpen}>Add new address</button>
+            <div className="col-sm-12 mb-2">
+                <button className="btn btn-primary col-sm-3 text-center" onClick={this.toggleOpen}>Add new address</button>
+            </div>
+            
             }
             </div>   
             

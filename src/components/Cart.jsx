@@ -2,25 +2,31 @@ import React, { Component } from "react";
 import Address from "./Address";
 import { getProducts } from '../services/product';
 import { addToCart, removeFromCart, deleteFromCart, getCartItems } from '../services/cart';
+import { getPaymentOptions } from "../services/payments";
 import { getAddress } from "../services/address";
 import CartProducts from "./CartProducts";
 import CartSummary from "./CartSummary";
+import Payments from "./Payments";
+
 
 class Cart extends Component {
     state = {
         products: [],
         cart: [],
         address: [],
+        payments:[],
         deliveryaddress: {},
+        paymentby:{},
         grandtotal: 0
     }
     componentDidMount() {
         let products = getProducts();
         let cart = getCartItems();
         let address = getAddress();
+        let payments = getPaymentOptions();
         let deliveryaddress = this.setDeliveryAddress(address);
         products = this.mapProducts(cart,products);
-        this.setState({ products, cart, address, deliveryaddress })
+        this.setState({ products, cart, address, deliveryaddress, payments })
     }
     mapProducts = (cart,products) => {
         let grandtotal = 0;
@@ -74,7 +80,7 @@ class Cart extends Component {
     }
 
     render() {
-        const { products, address, grandtotal } = this.state;
+        const { products, payments, address, grandtotal } = this.state;
         return ( 
             <React.Fragment>
                 <div className="row">
@@ -87,17 +93,20 @@ class Cart extends Component {
                         deleteFromCart={this.deleteFromCart}
                     />
                     {products.length > 0 ?
-                    <Address
+                    <>
+                        <Address
                         addressData={address}
                         isdelete={false} 
                         selectedAddress={this.changeDeliveryAddress} 
                     />
+                    <Payments payments={payments} />
+                    </>
                     :
                     null
                     }
                 </div>
                 
-                <CartSummary products={products} grandtotal={grandtotal} />
+                <CartSummary products={products} grandtotal={grandtotal} isdelete={false} />
                 
                 </div>
             </React.Fragment>
