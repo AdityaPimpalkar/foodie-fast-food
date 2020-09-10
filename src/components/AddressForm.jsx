@@ -2,7 +2,7 @@ import React from 'react';
 
 const AddressForm = ({ data, errors, handleChange, handleSubmit, toggleClose}) => {
     return ( 
-        <div className="card-bodyd text-left">
+        <div className="card-body text-left">
         <div className="card">
             <div className="card-body">
                 <div className="row mb-2">
@@ -37,7 +37,7 @@ const AddressForm = ({ data, errors, handleChange, handleSubmit, toggleClose}) =
                 </div>
                 <div className="row">
                 <div className="col-sm-6">
-                    <button className="btn btn-primary btn-block" onClick={(e) => handleSubmit(e)} disabled={Object.keys(errors).length > 0 ? true:false}>
+                    <button className="btn btn-primary btn-block" onClick={(e) => handleSubmit(e)} disabled={Object.keys(errors).length > 0 ? false:true}>
                         Save and deliver here
                     </button>
 
