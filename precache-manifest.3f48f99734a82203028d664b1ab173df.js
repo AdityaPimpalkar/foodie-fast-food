@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "111b1cd84b463abc75e023bb3fddc8b1",
+    "revision": "aa088efabb49b0df92ef17c520f81729",
     "url": "/foodie-fast-food/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/foodie-fast-food/static/css/2.ab4bf431.chunk.css"
   },
   {
-    "revision": "da4e687dc8fd69df1d43",
+    "revision": "b59869e465915b099782",
     "url": "/foodie-fast-food/static/css/main.93562dc3.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/foodie-fast-food/static/js/2.a5950704.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "da4e687dc8fd69df1d43",
-    "url": "/foodie-fast-food/static/js/main.8172bfd9.chunk.js"
+    "revision": "b59869e465915b099782",
+    "url": "/foodie-fast-food/static/js/main.b46c7be3.chunk.js"
   },
   {
     "revision": "99c8b168cbceff1204d3",
