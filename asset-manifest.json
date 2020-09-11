@@ -1,26 +1,30 @@
 {
   "files": {
     "main.css": "/foodie-fast-food/static/css/main.93562dc3.chunk.css",
-    "main.js": "/foodie-fast-food/static/js/main.b46c7be3.chunk.js",
-    "main.js.map": "/foodie-fast-food/static/js/main.b46c7be3.chunk.js.map",
+    "main.js": "/foodie-fast-food/static/js/main.70ffd292.chunk.js",
+    "main.js.map": "/foodie-fast-food/static/js/main.70ffd292.chunk.js.map",
     "runtime-main.js": "/foodie-fast-food/static/js/runtime-main.7e65eab6.js",
     "runtime-main.js.map": "/foodie-fast-food/static/js/runtime-main.7e65eab6.js.map",
     "static/css/2.ab4bf431.chunk.css": "/foodie-fast-food/static/css/2.ab4bf431.chunk.css",
-    "static/js/2.a5950704.chunk.js": "/foodie-fast-food/static/js/2.a5950704.chunk.js",
-    "static/js/2.a5950704.chunk.js.map": "/foodie-fast-food/static/js/2.a5950704.chunk.js.map",
+    "static/js/2.67dec1d8.chunk.js": "/foodie-fast-food/static/js/2.67dec1d8.chunk.js",
+    "static/js/2.67dec1d8.chunk.js.map": "/foodie-fast-food/static/js/2.67dec1d8.chunk.js.map",
     "index.html": "/foodie-fast-food/index.html",
-    "precache-manifest.3f48f99734a82203028d664b1ab173df.js": "/foodie-fast-food/precache-manifest.3f48f99734a82203028d664b1ab173df.js",
+    "precache-manifest.ef6a26a1a3e69e9fe26ba56b4533c4cb.js": "/foodie-fast-food/precache-manifest.ef6a26a1a3e69e9fe26ba56b4533c4cb.js",
     "service-worker.js": "/foodie-fast-food/service-worker.js",
     "static/css/2.ab4bf431.chunk.css.map": "/foodie-fast-food/static/css/2.ab4bf431.chunk.css.map",
     "static/css/main.93562dc3.chunk.css.map": "/foodie-fast-food/static/css/main.93562dc3.chunk.css.map",
-    "static/js/2.a5950704.chunk.js.LICENSE.txt": "/foodie-fast-food/static/js/2.a5950704.chunk.js.LICENSE.txt",
+    "static/js/2.67dec1d8.chunk.js.LICENSE.txt": "/foodie-fast-food/static/js/2.67dec1d8.chunk.js.LICENSE.txt",
+    "static/media/burger1.jpg": "/foodie-fast-food/static/media/burger1.79705e28.jpg",
+    "static/media/burger2.jpg": "/foodie-fast-food/static/media/burger2.566fa47c.jpg",
+    "static/media/burger3.png": "/foodie-fast-food/static/media/burger3.344ece69.png",
+    "static/media/burger4.jpg": "/foodie-fast-food/static/media/burger4.91b5fc65.jpg",
     "static/media/font-awesome.css": "/foodie-fast-food/static/media/fontawesome-webfont.fee66e71.woff"
   },
   "entrypoints": [
     "static/js/runtime-main.7e65eab6.js",
     "static/css/2.ab4bf431.chunk.css",
-    "static/js/2.a5950704.chunk.js",
+    "static/js/2.67dec1d8.chunk.js",
     "static/css/main.93562dc3.chunk.css",
-    "static/js/main.b46c7be3.chunk.js"
+    "static/js/main.70ffd292.chunk.js"
   ]
 }
