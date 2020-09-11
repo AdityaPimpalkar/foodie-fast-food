@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/foodiefastfoods/static/css/main.93562dc3.chunk.css",
+    "main.js": "/foodiefastfoods/static/js/main.161346ba.chunk.js",
+    "main.js.map": "/foodiefastfoods/static/js/main.161346ba.chunk.js.map",
+    "runtime-main.js": "/foodiefastfoods/static/js/runtime-main.8f930960.js",
+    "runtime-main.js.map": "/foodiefastfoods/static/js/runtime-main.8f930960.js.map",
+    "static/css/2.b128bc40.chunk.css": "/foodiefastfoods/static/css/2.b128bc40.chunk.css",
+    "static/js/2.a5950704.chunk.js": "/foodiefastfoods/static/js/2.a5950704.chunk.js",
+    "static/js/2.a5950704.chunk.js.map": "/foodiefastfoods/static/js/2.a5950704.chunk.js.map",
+    "index.html": "/foodiefastfoods/index.html",
+    "precache-manifest.e38f7893b39d72f82a62a07e425fd6be.js": "/foodiefastfoods/precache-manifest.e38f7893b39d72f82a62a07e425fd6be.js",
+    "service-worker.js": "/foodiefastfoods/service-worker.js",
+    "static/css/2.b128bc40.chunk.css.map": "/foodiefastfoods/static/css/2.b128bc40.chunk.css.map",
+    "static/css/main.93562dc3.chunk.css.map": "/foodiefastfoods/static/css/main.93562dc3.chunk.css.map",
+    "static/js/2.a5950704.chunk.js.LICENSE.txt": "/foodiefastfoods/static/js/2.a5950704.chunk.js.LICENSE.txt",
+    "static/media/font-awesome.css": "/foodiefastfoods/static/media/fontawesome-webfont.fee66e71.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8f930960.js",
+    "static/css/2.b128bc40.chunk.css",
+    "static/js/2.a5950704.chunk.js",
+    "static/css/main.93562dc3.chunk.css",
+    "static/js/main.161346ba.chunk.js"
+  ]
+}
