@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/foodiefastfoods/static/css/main.93562dc3.chunk.css",
-    "main.js": "/foodiefastfoods/static/js/main.161346ba.chunk.js",
-    "main.js.map": "/foodiefastfoods/static/js/main.161346ba.chunk.js.map",
-    "runtime-main.js": "/foodiefastfoods/static/js/runtime-main.8f930960.js",
-    "runtime-main.js.map": "/foodiefastfoods/static/js/runtime-main.8f930960.js.map",
-    "static/css/2.b128bc40.chunk.css": "/foodiefastfoods/static/css/2.b128bc40.chunk.css",
-    "static/js/2.a5950704.chunk.js": "/foodiefastfoods/static/js/2.a5950704.chunk.js",
-    "static/js/2.a5950704.chunk.js.map": "/foodiefastfoods/static/js/2.a5950704.chunk.js.map",
-    "index.html": "/foodiefastfoods/index.html",
-    "precache-manifest.e38f7893b39d72f82a62a07e425fd6be.js": "/foodiefastfoods/precache-manifest.e38f7893b39d72f82a62a07e425fd6be.js",
-    "service-worker.js": "/foodiefastfoods/service-worker.js",
-    "static/css/2.b128bc40.chunk.css.map": "/foodiefastfoods/static/css/2.b128bc40.chunk.css.map",
-    "static/css/main.93562dc3.chunk.css.map": "/foodiefastfoods/static/css/main.93562dc3.chunk.css.map",
-    "static/js/2.a5950704.chunk.js.LICENSE.txt": "/foodiefastfoods/static/js/2.a5950704.chunk.js.LICENSE.txt",
-    "static/media/font-awesome.css": "/foodiefastfoods/static/media/fontawesome-webfont.fee66e71.woff"
+    "main.css": "/foodie-fast-food/static/css/main.93562dc3.chunk.css",
+    "main.js": "/foodie-fast-food/static/js/main.8172bfd9.chunk.js",
+    "main.js.map": "/foodie-fast-food/static/js/main.8172bfd9.chunk.js.map",
+    "runtime-main.js": "/foodie-fast-food/static/js/runtime-main.7e65eab6.js",
+    "runtime-main.js.map": "/foodie-fast-food/static/js/runtime-main.7e65eab6.js.map",
+    "static/css/2.ab4bf431.chunk.css": "/foodie-fast-food/static/css/2.ab4bf431.chunk.css",
+    "static/js/2.a5950704.chunk.js": "/foodie-fast-food/static/js/2.a5950704.chunk.js",
+    "static/js/2.a5950704.chunk.js.map": "/foodie-fast-food/static/js/2.a5950704.chunk.js.map",
+    "index.html": "/foodie-fast-food/index.html",
+    "precache-manifest.fd87f01f62c1fb5682e4368397e0b563.js": "/foodie-fast-food/precache-manifest.fd87f01f62c1fb5682e4368397e0b563.js",
+    "service-worker.js": "/foodie-fast-food/service-worker.js",
+    "static/css/2.ab4bf431.chunk.css.map": "/foodie-fast-food/static/css/2.ab4bf431.chunk.css.map",
+    "static/css/main.93562dc3.chunk.css.map": "/foodie-fast-food/static/css/main.93562dc3.chunk.css.map",
+    "static/js/2.a5950704.chunk.js.LICENSE.txt": "/foodie-fast-food/static/js/2.a5950704.chunk.js.LICENSE.txt",
+    "static/media/font-awesome.css": "/foodie-fast-food/static/media/fontawesome-webfont.fee66e71.woff"
   },
   "entrypoints": [
-    "static/js/runtime-main.8f930960.js",
-    "static/css/2.b128bc40.chunk.css",
+    "static/js/runtime-main.7e65eab6.js",
+    "static/css/2.ab4bf431.chunk.css",
     "static/js/2.a5950704.chunk.js",
     "static/css/main.93562dc3.chunk.css",
-    "static/js/main.161346ba.chunk.js"
+    "static/js/main.8172bfd9.chunk.js"
   ]
 }
