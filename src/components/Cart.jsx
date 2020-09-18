@@ -48,6 +48,10 @@ class Cart extends Component {
         return address
     }
 
+    choosePaymentBy = (paymentby) => {
+        this.setState({ paymentby });
+    }
+
     changeDeliveryAddress = (address) => {
         const addresses = [...this.state.address]
         const index = addresses.indexOf(address);
@@ -99,7 +103,7 @@ class Cart extends Component {
                         isdelete={false} 
                         selectedAddress={this.changeDeliveryAddress} 
                     />
-                    <Payments payments={payments} />
+                    <Payments payments={payments} paymentby={this.choosePaymentBy} />
                     </>
                     :
                     null

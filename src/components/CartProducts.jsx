@@ -44,7 +44,7 @@ const CartProducts = ({products, addToCart, removeFromCart, deleteFromCart}) => 
         <div className="card">
             <div className="card-body">
             <h5 className="card-title">Your cart is empty!</h5>
-                <Link to="/">
+                <Link to="/foodie-fast-food/">
                     <button className="btn btn-primary">Add</button>
                 </Link>
             </div>

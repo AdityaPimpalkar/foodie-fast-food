@@ -1,54 +1,99 @@
 import React, { Component } from 'react';
 import 'react-credit-cards/es/styles-compiled.css';
-
+import Joi from 'joi';
 
 import Card from './Card';
+import { addCard } from '../services/payments';
 
 class Payments extends Component {
     state = { 
         data: {
             cvc: '',
             expiry: '',
-            focus: '',
             name: '',
             number: '',
         },
+        focus: '',
         errors:{},
         selectedpayment:{},
         isValid: false,
         toggleCard:false
     }
+    schema = {
+        // id: Joi.string(),
+        cvc: Joi.number().min(3).required().label("CVC"),
+        expiry: Joi.string().min(4).max(7).required().label("EXPIRY"),
+        name: Joi.string().required().label("NAME"),
+        number: Joi.string().min(16).required().label("CARD NUMBER")
+    }
 
     choosePayment = (card) => {
-        if(card) this.setState({ selectedpayment: card })
-        else this.setState({ selectedpayment:"cashondelivery" })
+        if(card) {
+            this.setState({ selectedpayment: card });
+            const payment = {card:{ ...card}};
+            this.props.paymentby(payment);
+        } else {
+            this.setState({ selectedpayment:"cashondelivery" });
+            const payment = {selectedpayment:"cashondelivery"};
+            this.props.paymentby(payment);
+        } 
     }
     
     handleInputFocus = (e) => {
-        const data = {...this.state.data}
-        data.focus = e.target.name;
-        this.setState({ data });
+        this.setState({ focus: e.target.name });
     }
+
+    validate = () => {
+        const { error } = Joi.object(this.schema).validate(this.state.data);
+        if(error) {
+            const errors = {};
+            for (let item of error.details) errors[item.path[0]] = item.message;
+            console.log(errors)
+            return errors;
+        }else {
+            return null
+        }
+    };
+    
+    validateProperty = ({ name, value }) => {
+        const obj = { [name]: value };
+        const schema = Joi.object({
+            [name]: this.schema[name]
+        });
+        const { error } = schema.validate(obj);
+        return error ? error.details[0].message : null;
+    };
       
     handleInputChange = (e) => {
         const target = e.target;
         const data = {...this.state.data}
+        const errors = { ...this.state.errors };
+        const errorMessage = this.validateProperty(target);
+        if (errorMessage) errors[target.name] = errorMessage;
+        else delete errors[target.name];
+
         if (target.name === 'number') {
             data[target.name] = target.value.replace(/ /g, '');
-            this.setState({ data });
+            this.setState({ data, errors });
         }
         else if (target.name === 'expiry') {
             data[target.name] = target.value.replace(/ |\//g, '');
-            this.setState({ data });
+            this.setState({ data, errors });
         }
         else {
             data[target.name] = target.value
-            this.setState({ data });
+            this.setState({ data, errors });
         }
     }
 
     handleSubmit = () => {
-
+        const errors = this.validate();
+        this.setState({ errors: errors || {} });
+        if (errors) return;
+        
+        addCard(this.state.data);
+        this.choosePayment(this.state.data);
+        this.toggleClose();
     }
 
     isValidCallback(type, isValid) {
@@ -76,7 +121,7 @@ class Payments extends Component {
 
     render() {
         const { payments, isdelete } = this.props;
-         const { data, toggleCard, errors, selectedpayment, isValid } = this.state;
+         const { data, focus, toggleCard, errors, selectedpayment, isValid } = this.state;
         return (
             <div className="card">
                 <div className="card-header h5 text-left">Payments</div>
@@ -113,6 +158,7 @@ class Payments extends Component {
                     
                         <Card 
                             data={data}
+                            focus={focus}
                             errors={errors}
                             handleInputFocus={this.handleInputFocus}
                             handleInputChange={this.handleInputChange}
@@ -129,9 +175,6 @@ class Payments extends Component {
                         </div>
                     
                     }
-                    
-                    
-                     
                     <h5 className="card-title">Other options</h5>
                     <div className="row mb-2 text-left">
                         <div className="col-sm-1 text-center align-self-center">

@@ -32,10 +32,11 @@ let user = {
     payments: {
         cards:[
             {
-                number:"2345678901234567",
+                cvv:"234",
                 expiry:"01/23",
-                cvv:"234"
-            }
+                name:"XYZ",
+                number:"2345678901234567"
+            },
         ]
     }
 }

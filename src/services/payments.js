@@ -6,3 +6,6 @@ export function getPaymentOptions() {
     return payments;
 }
 
+export function addCard(card) {
+    payments.cards.push(card);
+}

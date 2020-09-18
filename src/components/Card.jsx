@@ -10,9 +10,8 @@ class Card extends Component {
         Payment.formatCardExpiry(document.querySelector('[name="expiry"]'));
         Payment.formatCardCVC(document.querySelector('[name="cvc"]'));
     }
-
     render() {
-        const { data, errors, handleInputChange, handleInputFocus, isValidCallback, handleSubmit, toggleClose, isValid } = this.props 
+        const { data, focus, errors, handleInputChange, handleInputFocus, isValidCallback, handleSubmit, toggleClose, isValid } = this.props 
         return (  
             <div className="card">
                 <div className="card-body">
@@ -21,7 +20,7 @@ class Card extends Component {
                             <Cards
                                 cvc={data.cvc}
                                 expiry={data.expiry}
-                                focused={data.focus}
+                                focused={focus}
                                 name={data.name}
                                 number={data.number}
                                 callback={(type, isValid) => isValidCallback(type, isValid)}
