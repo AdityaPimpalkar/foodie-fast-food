@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 //import Sidenavbar from './Sidenavbar';
 import Products from './Products';
 import { getTotalItems } from '../services/cart';
+import Orders from './Orders';
 
 
 class Container extends Component {
@@ -25,6 +26,7 @@ class Container extends Component {
                 <Switch>
                     <Route path="/foodie-fast-food/" exact > <Products handleCartCount={() => this.handleCartCount()} /> </Route>
                     <Route path="/foodie-fast-food/cart" > <Cart handleCartCount={() => this.handleCartCount()} /> </Route>
+                    <Route path="/foodie-fast-food/orders" > <Orders /> </Route>
                     <Redirect to="/not-found" />
                 </Switch>
             </main>

@@ -14,9 +14,9 @@ class Cart extends Component {
         products: [],
         cart: [],
         address: [],
-        payments:[],
+        payments: [],
         deliveryaddress: {},
-        paymentby:{},
+        paymentby: {},
         grandtotal: 0
     }
     componentDidMount() {
@@ -84,7 +84,7 @@ class Cart extends Component {
     }
 
     render() {
-        const { products, payments, address, grandtotal } = this.state;
+        const { products, payments, address, deliveryaddress, paymentby, grandtotal } = this.state;
         return ( 
             <React.Fragment>
                 <div className="row">
@@ -110,7 +110,7 @@ class Cart extends Component {
                     }
                 </div>
                 
-                <CartSummary products={products} grandtotal={grandtotal} isdelete={false} />
+                <CartSummary products={products} grandtotal={grandtotal} deliveryaddress={deliveryaddress} paymentby={paymentby} />
                 
                 </div>
             </React.Fragment>

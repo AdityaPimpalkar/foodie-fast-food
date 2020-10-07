@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
                         <Link className="nav-item nav-link home" to="/foodie-fast-food/">
                             <i className="fa fa-home fa-lg"></i> &nbsp;
                         </Link>
-                        <Link className="nav-item nav-link home" to="/foodie-fast-food/" title="Orders">
+                        <Link className="nav-item nav-link home" to="/foodie-fast-food/orders" title="Orders">
                             <i className="fa fa-shopping-bag fa-lg"></i>
                         </Link>
                         <Link className="nav-item nav-link cart" to="/foodie-fast-food/cart">

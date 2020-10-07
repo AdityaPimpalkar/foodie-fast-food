@@ -1,6 +1,9 @@
 import React from 'react';
 
-const CartSummary = ({products, grandtotal}) => {
+const CartSummary = ({products, grandtotal, deliveryaddress, paymentby}) => {
+    
+    const btnState = Object.keys(deliveryaddress).length === 0 || Object.keys(paymentby).length === 0 ? true:false;
+    const btntext = Object.keys(paymentby).length === 0 ? "Place Order": "Procced to payment";
     return ( 
         <div className="col-sm-4">
             <div className="card text-left sticky-top">
@@ -23,9 +26,15 @@ const CartSummary = ({products, grandtotal}) => {
                             <span className="float-right"><h4>₹{grandtotal}</h4></span>
                         </div>
                     </div>
-                    <span className="btn btn-success btn-block">
-                    Place Order
-                    </span>
+                    <button className="btn btn-success btn-block" disabled={btnState}>
+                    {btntext}
+                    </button>
+                    {Object.keys(deliveryaddress).length === 0 && (
+                        <div className="help-block text-danger"><i className="fa fa-exclamation-circle"></i> Please choose a delivery address</div>
+                    )}
+                    {Object.keys(paymentby).length === 0 && (
+                        <div className="help-block text-danger"><i className="fa fa-exclamation-circle"></i> Please choose a payment option</div>
+                    )}
                 </div>
                 
                 :
