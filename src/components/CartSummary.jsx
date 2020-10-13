@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CartSummary = ({products, grandtotal, deliveryaddress, paymentby}) => {
+const CartSummary = ({products, grandtotal, deliveryaddress, paymentby, handlePlaceOrder}) => {
     
     const btnState = Object.keys(deliveryaddress).length === 0 || Object.keys(paymentby).length === 0 ? true:false;
     const btntext = Object.keys(paymentby).length === 0 ? "Place Order": "Procced to payment";
@@ -30,10 +30,10 @@ const CartSummary = ({products, grandtotal, deliveryaddress, paymentby}) => {
                     {btntext}
                     </button>
                     {Object.keys(deliveryaddress).length === 0 && (
-                        <div className="help-block text-danger"><i className="fa fa-exclamation-circle"></i> Please choose a delivery address</div>
+                        <div className="help-block text-danger" onClick={() => handlePlaceOrder()}><i className="fa fa-exclamation-circle"></i> Please choose a delivery address</div>
                     )}
                     {Object.keys(paymentby).length === 0 && (
-                        <div className="help-block text-danger"><i className="fa fa-exclamation-circle"></i> Please choose a payment option</div>
+                        <div className="help-block text-danger" onClick={() => handlePlaceOrder()}><i className="fa fa-exclamation-circle"></i> Please choose a payment option</div>
                     )}
                 </div>
                 

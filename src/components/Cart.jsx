@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import Address from "./Address";
 import { getProducts } from '../services/product';
 import { addToCart, removeFromCart, deleteFromCart, getCartItems } from '../services/cart';
 import { getPaymentOptions } from "../services/payments";
 import { getAddress } from "../services/address";
+import { createOrder } from "../services/orders";
 import CartProducts from "./CartProducts";
 import CartSummary from "./CartSummary";
 import Payments from "./Payments";
+import Address from "./Address";
+
 
 
 class Cart extends Component {
@@ -83,6 +85,11 @@ class Cart extends Component {
         this.setState({ products, cart });
     }
 
+    handlePlaceOrder = () => {
+        console.log(this.state);
+        const result = createOrder(this.state);
+    }
+
     render() {
         const { products, payments, address, deliveryaddress, paymentby, grandtotal } = this.state;
         return ( 
@@ -110,7 +117,7 @@ class Cart extends Component {
                     }
                 </div>
                 
-                <CartSummary products={products} grandtotal={grandtotal} deliveryaddress={deliveryaddress} paymentby={paymentby} />
+                <CartSummary products={products} grandtotal={grandtotal} deliveryaddress={deliveryaddress} paymentby={paymentby} handlePlaceOrder={() => this.handlePlaceOrder} />
                 
                 </div>
             </React.Fragment>
