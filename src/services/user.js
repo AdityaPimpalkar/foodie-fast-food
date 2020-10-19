@@ -9,6 +9,14 @@ let user = {
         {
             "productId": "3",
             "selectedItems": 2
+        },
+        {
+            "productId": "2",
+            "selectedItems": 3
+        },
+        {
+            "productId": "5",
+            "selectedItems": 4
         }
     ],
     addresses: [

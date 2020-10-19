@@ -85,8 +85,7 @@ class Cart extends Component {
         this.setState({ products, cart });
     }
 
-    handlePlaceOrder = () => {
-        console.log(this.state);
+    handlePlaceOrder = (e) => {
         const result = createOrder(this.state);
     }
 
@@ -117,7 +116,13 @@ class Cart extends Component {
                     }
                 </div>
                 
-                <CartSummary products={products} grandtotal={grandtotal} deliveryaddress={deliveryaddress} paymentby={paymentby} handlePlaceOrder={() => this.handlePlaceOrder} />
+                <CartSummary 
+                    products={products} 
+                    grandtotal={grandtotal} 
+                    deliveryaddress={deliveryaddress} 
+                    paymentby={paymentby} 
+                    handlePlaceOrder={this.handlePlaceOrder} 
+                />
                 
                 </div>
             </React.Fragment>

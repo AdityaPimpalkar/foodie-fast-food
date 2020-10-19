@@ -26,14 +26,14 @@ const CartSummary = ({products, grandtotal, deliveryaddress, paymentby, handlePl
                             <span className="float-right"><h4>₹{grandtotal}</h4></span>
                         </div>
                     </div>
-                    <button className="btn btn-success btn-block" disabled={btnState}>
+                    <button className="btn btn-success btn-block" disabled={btnState} onClick={(e) => handlePlaceOrder(e)}>
                     {btntext}
                     </button>
                     {Object.keys(deliveryaddress).length === 0 && (
-                        <div className="help-block text-danger" onClick={() => handlePlaceOrder()}><i className="fa fa-exclamation-circle"></i> Please choose a delivery address</div>
+                        <div className="help-block text-danger"><i className="fa fa-exclamation-circle"></i> Please choose a delivery address</div>
                     )}
                     {Object.keys(paymentby).length === 0 && (
-                        <div className="help-block text-danger" onClick={() => handlePlaceOrder()}><i className="fa fa-exclamation-circle"></i> Please choose a payment option</div>
+                        <div className="help-block text-danger"><i className="fa fa-exclamation-circle"></i> Please choose a payment option</div>
                     )}
                 </div>
                 
