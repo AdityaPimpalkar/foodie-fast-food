@@ -30,3 +30,12 @@ code {
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+.fnt-16 {
+  font-size: 16px !important;
+  margin-bottom: 0.5%;
+}
+
+.bg-blue {
+  background-color:#80bfff !important;
+}

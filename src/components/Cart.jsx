@@ -86,7 +86,8 @@ class Cart extends Component {
     }
 
     handlePlaceOrder = (e) => {
-        const result = createOrder(this.state);
+        // const result = createOrder(this.state);
+        createOrder(this.state);
     }
 
     render() {

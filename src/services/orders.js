@@ -11,11 +11,14 @@ const orders = [
             landmark: "Hitavardhani road, Naupada"
         },
         order_id: 2,
-        status: "PENDING",
+        order_number: "#6743526478332354",
+        payment_status: "PENDING",
+        order_stage: 2,
+        order_status_text: 'Your order is being processed',
         paymentby:{
             selectedpayment: "cashondelivery"
         },
-        placed_on: "Mon, 19 Oct 2020 14:46:48 GMT",
+        placed_on: new Date("Mon, 19 Oct 2020 14:46:48 GMT").toLocaleString(),
         products: [
             {
                 desc: "larger grilled ham burger",
@@ -55,7 +58,7 @@ export function getOrders() {
 }
 
 export function createOrder(object) {
-    if(object != undefined) {
+    if(object !== undefined) {
         const obj = {
             order_id: orders.length + 1,
             user_id: '',
