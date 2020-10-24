@@ -33,9 +33,15 @@ code {
 
 .fnt-16 {
   font-size: 16px !important;
-  margin-bottom: 0.5%;
 }
 
 .bg-blue {
   background-color:#80bfff !important;
+}
+
+
+.card-box:hover {
+  cursor: pointer;  
+  transition: ease-in-out;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }

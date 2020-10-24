@@ -10,11 +10,10 @@ const orders = [
             isdefault: true,
             landmark: "Hitavardhani road, Naupada"
         },
-        order_id: 2,
-        order_number: "#6743526478332354",
-        payment_status: "PENDING",
-        order_stage: 2,
-        order_status_text: 'Your order is being processed',
+        order_id: 1,
+        order_number: "ORD6743526478332354",
+        payment_status: "PAID",
+        order_stage: 4,
         paymentby:{
             selectedpayment: "cashondelivery"
         },
@@ -67,7 +66,10 @@ export function createOrder(object) {
             products: object.products,
             deliveryaddress: object.deliveryaddress,
             paymentby: object.paymentby,
-            order_total: object.grandtotal
+            order_total: object.grandtotal,
+            order_number: 'ORD6743526478332354'+ orders.length + 1,
+            payment_status: 'PAID',
+            order_stage: 1,
         }
         orders.push(obj);
         return 1;
@@ -75,3 +77,8 @@ export function createOrder(object) {
     
 }
 
+export function GetOrderDetails(order_number) {
+    const order = orders.find((order) => order.order_number === order_number)
+    if(order) return order
+    else return null;
+}
