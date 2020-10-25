@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/foodie-fast-food/precache-manifest.ef6a26a1a3e69e9fe26ba56b4533c4cb.js"
+  "/foodie-fast-food/precache-manifest.37e767e5041f4d9eec7da4a8c0617716.js"
 );
 
 self.addEventListener('message', (event) => {
