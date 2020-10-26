@@ -1,6 +1,6 @@
 import user from './user.js'
 
-const { cart } = user
+let { cart } = user
 
 //const cart = [
     // {
@@ -26,8 +26,8 @@ export function addToCart(product) {
         cart[index].selectedItems++
     } else {
         cart.push({
-            "productId": product.id,
-            "selectedItems": 1
+            productId: product.id,
+            selectedItems: 1
         })
     }
     return cart;
@@ -49,4 +49,8 @@ export function deleteFromCart(product) {
     const cartobj = cart.find(cartobj => cartobj.productId === product.id);
     cart.splice(cart.indexOf(cartobj), 1)
     return cart;
+}
+
+export function clearCart() {
+    cart = []
 }

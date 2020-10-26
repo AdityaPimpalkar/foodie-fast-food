@@ -3,10 +3,10 @@ import React from 'react';
 const CartSummary = ({products, grandtotal, deliveryaddress, paymentby, handlePlaceOrder}) => {
     
     const btnState = Object.keys(deliveryaddress).length === 0 || Object.keys(paymentby).length === 0 ? true:false;
-    const btntext = Object.keys(paymentby).length === 0 ? "Place Order": "Procced to payment";
+    const btntext = paymentby.selectedpayment === "cashondelivery" ? "Place Order": "Procced to payment";
     return ( 
         <div className="col-sm-4">
-            <div className="card text-left sticky-top">
+            <div className="card text-left">
             {products.length > 0 ?
 
                 <div className="card-body">
@@ -14,7 +14,7 @@ const CartSummary = ({products, grandtotal, deliveryaddress, paymentby, handlePl
                     {products.map((product) => (
                         <div className="card-text h6" key={product.id}>
                             <div className="col mb-2">
-                                {product.name}
+                                {product.name} (₹{product.price}x{product.selectedItems})
                                 <span className="float-right">₹{product.total}</span>
                             </div>
                         </div>

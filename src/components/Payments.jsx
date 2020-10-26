@@ -30,7 +30,7 @@ class Payments extends Component {
     choosePayment = (card) => {
         if(card) {
             this.setState({ selectedpayment: card });
-            const payment = {card:{ ...card}};
+            const payment = {selectedpayment: { card:{ ...card} }};
             this.props.paymentby(payment);
         } else {
             this.setState({ selectedpayment:"cashondelivery" });

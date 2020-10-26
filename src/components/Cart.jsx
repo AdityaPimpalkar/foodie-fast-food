@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router-dom';
 import { getProducts } from '../services/product';
 import { addToCart, removeFromCart, deleteFromCart, getCartItems } from '../services/cart';
 import { getPaymentOptions } from "../services/payments";
@@ -9,8 +10,6 @@ import CartSummary from "./CartSummary";
 import Payments from "./Payments";
 import Address from "./Address";
 
-
-
 class Cart extends Component {
     state = {
         products: [],
@@ -19,7 +18,8 @@ class Cart extends Component {
         payments: [],
         deliveryaddress: {},
         paymentby: {},
-        grandtotal: 0
+        grandtotal: 0,
+        redirect: false,
     }
     componentDidMount() {
         let products = getProducts();
@@ -86,44 +86,46 @@ class Cart extends Component {
     }
 
     handlePlaceOrder = (e) => {
-        // const result = createOrder(this.state);
-        createOrder(this.state);
+         const order = createOrder(this.state);
+         this.props.handleCartCount();
+         this.setState({ redirect: order });
     }
 
     render() {
-        const { products, payments, address, deliveryaddress, paymentby, grandtotal } = this.state;
+        const { products, payments, address, deliveryaddress, paymentby, grandtotal, redirect } = this.state;
         return ( 
             <React.Fragment>
+                { redirect ? (<Redirect push to={"/foodie-fast-food/order/" + redirect}/> ) : null }
                 <div className="row">
-                <div className="col-sm-8">
-                    <div className="card-header h5 text-left">My Cart</div>
-                    <CartProducts
-                        products={products}
-                        addToCart={this.addToCart}
-                        removeFromCart={this.removeFromCart}
-                        deleteFromCart={this.deleteFromCart}
+                    <div className="col-sm-8">
+                        <div className="card-header h5 text-left">My Cart</div>
+                        <CartProducts
+                            products={products}
+                            addToCart={this.addToCart}
+                            removeFromCart={this.removeFromCart}
+                            deleteFromCart={this.deleteFromCart}
+                        />
+                        {products.length > 0 ?
+                            <React.Fragment>
+                                <Address
+                                    addressData={address}
+                                    isdelete={false} 
+                                    selectedAddress={this.changeDeliveryAddress} 
+                                />
+                                <Payments payments={payments} paymentby={this.choosePaymentBy} />
+                            </React.Fragment>
+                        :
+                            null
+                        }
+                    </div>
+                    
+                    <CartSummary 
+                        products={products} 
+                        grandtotal={grandtotal} 
+                        deliveryaddress={deliveryaddress} 
+                        paymentby={paymentby} 
+                        handlePlaceOrder={this.handlePlaceOrder} 
                     />
-                    {products.length > 0 ?
-                    <>
-                        <Address
-                        addressData={address}
-                        isdelete={false} 
-                        selectedAddress={this.changeDeliveryAddress} 
-                    />
-                    <Payments payments={payments} paymentby={this.choosePaymentBy} />
-                    </>
-                    :
-                    null
-                    }
-                </div>
-                
-                <CartSummary 
-                    products={products} 
-                    grandtotal={grandtotal} 
-                    deliveryaddress={deliveryaddress} 
-                    paymentby={paymentby} 
-                    handlePlaceOrder={this.handlePlaceOrder} 
-                />
                 
                 </div>
             </React.Fragment>

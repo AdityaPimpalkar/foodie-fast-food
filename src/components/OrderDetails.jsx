@@ -11,7 +11,7 @@ class OrderDetails extends Component {
             payment_status: "",
             order_stage: 0,
             paymentby:{
-                selectedpayment: ""
+                selectedpayment: {card:{}}
             },
             placed_on: "",
             products: [],
@@ -41,6 +41,7 @@ class OrderDetails extends Component {
                                     <div>Order number <span className="badge badge-light ">{order.order_number}</span></div>
                                     <div>Placed on <span className="badge badge-light">{order.placed_on}</span></div>
                                     <div>Delivered on <span className="badge badge-light">{order.delivered_on !== "" ?  order.delivered_on: "-"}</span></div>
+                                    <div>Payment method: <span className="badge badge-light">{order.paymentby.selectedpayment !== "cashondelivery" ? order.paymentby.selectedpayment.card.number : "Cash on delivery" }</span></div>
                                     <div>Payment: <span className={order.payment_status === "PENDING" ? "badge badge-warning" : "badge badge-success"}>{order.payment_status}</span></div>
                                 </div>
                             </div>
@@ -84,7 +85,7 @@ class OrderDetails extends Component {
                                             </span>
                                         </td>
                                         <td>
-                                        ₹{product.price*product.selectedItems}
+                                            ₹{product.price*product.selectedItems}
                                         </td>
                                     </tr>
                                 ))}

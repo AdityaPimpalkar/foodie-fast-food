@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; 
 import { getOrders } from '../services/orders';
-
+import { Link } from 'react-router-dom';
 class Orders extends Component {
     state = {  
         orders: []
@@ -21,7 +21,7 @@ class Orders extends Component {
                 {orders.length > 0 ?
 
                 orders.map((order) => (
-                    <a href={"/foodie-fast-food/order/" + order.order_number} className="card card-box text-left mb-4 text-dark btn" key={order.order_id}>
+                    <Link to={"/foodie-fast-food/order/" + order.order_number} className="card card-box text-left mb-4 text-dark btn" key={order.order_id}>
                         
                         <div className="card-body">
                             {/* <h6 className="badge badge-secondary">ORDER {order.order_number} | {order.placed_on} </h6> */}
@@ -55,13 +55,9 @@ class Orders extends Component {
                                     </div>
                                 </div>
                                 <div className="col-md-4 text-center"> 
-                                
-                                <h5>₹{order.order_total}</h5> 
-                                    
-                                    
+                                    <h5>₹{order.order_total}</h5> 
                                 </div>
                                 <div className="col-md-4">
-                                   
                                     {(() => {
                                     switch (order.order_stage) {
                                         case 1: return <span className="fnt-16 text-secondary"><i className="fa fa-circle" aria-hidden="true"></i> Your order has been placed</span>;
@@ -71,12 +67,11 @@ class Orders extends Component {
                                         default: return <span className="fnt-16"><i className="fa fa-circle text-danger" aria-hidden="true"></i> We could not place your order</span>;;
                                     }
                                     })()}
-                                    
                                     <div>Payment: <span className={order.payment_status === "PENDING" ? "badge badge-warning" : "badge badge-success"}>{order.payment_status}</span></div>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </Link>
 
                 ))
 

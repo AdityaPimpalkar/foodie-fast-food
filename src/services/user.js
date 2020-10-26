@@ -50,31 +50,3 @@ let user = {
 }
 
 export default user;
-
-// {payments.cards.length > 0 ?
-
-//     payments.cards.map((card,index) => (
-//     <div className="row mb-2 text-left" key={index}>
-//         <div className="col-sm-1 text-center align-self-center">
-        
-//         {selectedpayment === card ?
-//         <button className="btn btn-success"> <i className="fa fa-check"></i></button>
-//         :
-//         <button className="btn btn-light" onClick={() => this.choosePayment(card)}><i className="fa fa-check"></i></button>
-//         }
-//         </div>
-//         <div className="col-sm-7 font-weight-bold font-italic">
-//             <div>{card.number}</div>
-//             <small>{card.expiry}</small>
-//         </div>
-//         <div className="col-sm-3">
-//             {isdelete ? <button className="btn btn-danger float-right" ><i className="fa fa-trash"></i></button>:null}
-//             <button className="btn btn-primary float-right mr-2" ><i className="fa fa-pencil"></i></button>
-//             {/* onClick={() => handleEdit(card)} */}
-//         </div>
-//     </div>
-//     ))
-//     :
-//     <h6 className="col-sm-12 text-center align-self-center">No saved cards</h6>
-    
-//     }

@@ -37,7 +37,7 @@ const AddressForm = ({ data, errors, handleChange, handleSubmit, toggleClose}) =
                 </div>
                 <div className="row">
                 <div className="col-sm-6">
-                    <button className="btn btn-primary btn-block" onClick={(e) => handleSubmit(e)} disabled={Object.keys(errors).length > 0 ? false:true}>
+                    <button className="btn btn-primary btn-block" onClick={(e) => handleSubmit(e)} disabled={Object.keys(errors).length >= 0 ? false:true}>
                         Save and deliver here
                     </button>
 
