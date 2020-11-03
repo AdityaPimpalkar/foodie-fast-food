@@ -1,9 +1,9 @@
 let user = {
     id:'1',
-    firstName:'Aditya',
-    lastName:'Pimpalkar',
+    first_name:'Aditya',
+    last_name:'Pimpalkar',
     phone:"9757135624",
-    img:'',
+    image:'',
     emailId:'adipimpalkar14@gmail.com',
     cart:[
         {
@@ -50,3 +50,8 @@ let user = {
 }
 
 export default user;
+
+
+export function getUserDetails() {
+    return user;
+}

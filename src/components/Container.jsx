@@ -6,6 +6,7 @@ import OrderDetails from './OrderDetails';
 import Cart from './Cart';
 import Navbar from './Navbar';
 import Products from './Products';
+import User from './User';
 //import Sidenavbar from './Sidenavbar';
 
 class Container extends Component {
@@ -27,6 +28,7 @@ class Container extends Component {
                     <Route path="/foodie-fast-food/" exact > <Products handleCartCount={() => this.handleCartCount()} /> </Route>
                     <Route path="/foodie-fast-food/cart" > <Cart handleCartCount={() => this.handleCartCount()} /> </Route>
                     <Route path="/foodie-fast-food/orders" > <Orders /> </Route>
+                    <Route path="/foodie-fast-food/user" > <User /> </Route>
                     <Route path="/foodie-fast-food/order/:id" > <OrderDetails /> </Route>
                     <Redirect to="/not-found" />
                 </Switch>

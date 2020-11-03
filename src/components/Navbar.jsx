@@ -14,11 +14,11 @@ import { Link } from 'react-router-dom';
                 <div className="collapse navbar-collapse">
                     <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                         <span className="nav-item dropdown user">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i className="fa fa-user-circle fa-lg"></i></a>
-                            <div class="dropdown-content" aria-labelledby="navbarDropdownMenuLink">
-                                <Link class="dropdown-item text-left" to="/foodie-fast-food/orders" ><i className="fa fa-user fa-lg mr-2"></i> My Profile</Link>
-                                <Link class="dropdown-item text-left" to="/foodie-fast-food/orders" ><i className="fa fa-shopping-bag fa-lg mr-2"></i> Orders</Link>
-                                <Link class="dropdown-item text-left" to="/foodie-fast-food/orders" ><i className="fa fa-power-off fa-lg mr-2"></i> Logout</Link>
+                            <span className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i className="fa fa-user-circle fa-lg"></i></span>
+                            <div className="dropdown-content" aria-labelledby="navbarDropdownMenuLink">
+                                <Link className="dropdown-item text-left" to="/foodie-fast-food/user" ><i className="fa fa-user fa-lg mr-2"></i> My Profile</Link>
+                                <Link className="dropdown-item text-left" to="/foodie-fast-food/orders" ><i className="fa fa-shopping-bag fa-lg mr-2"></i> Orders</Link>
+                                <Link className="dropdown-item text-left" to="/foodie-fast-food/orders" ><i className="fa fa-power-off fa-lg mr-2"></i> Logout</Link>
                             </div>
                         </span>
                         <Link className="nav-item nav-link cart" to="/foodie-fast-food/cart">

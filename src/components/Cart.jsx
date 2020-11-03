@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { getProducts } from '../services/product';
 import { addToCart, removeFromCart, deleteFromCart, getCartItems } from '../services/cart';
 import { getPaymentOptions } from "../services/payments";
-import { getAddress } from "../services/address";
+import { getSelectedAddress } from "../services/address";
 import { createOrder } from "../services/orders";
 import CartProducts from "./CartProducts";
 import CartSummary from "./CartSummary";
@@ -14,7 +14,6 @@ class Cart extends Component {
     state = {
         products: [],
         cart: [],
-        address: [],
         payments: [],
         deliveryaddress: {},
         paymentby: {},
@@ -24,11 +23,10 @@ class Cart extends Component {
     componentDidMount() {
         let products = getProducts();
         let cart = getCartItems();
-        let address = getAddress();
         let payments = getPaymentOptions();
-        let deliveryaddress = this.setDeliveryAddress(address);
+        let deliveryaddress = getSelectedAddress();
         products = this.mapProducts(cart,products);
-        this.setState({ products, cart, address, deliveryaddress, payments })
+        this.setState({ products, cart, payments, deliveryaddress })
     }
     mapProducts = (cart,products) => {
         let grandtotal = 0;
@@ -44,24 +42,12 @@ class Cart extends Component {
         return products;
     }
 
-    setDeliveryAddress = (addressData) => {
-        let address = addressData.find((address) => address.isdefault === true)
-        address = address ? address: {}
-        return address
-    }
-
     choosePaymentBy = (paymentby) => {
         this.setState({ paymentby });
     }
 
-    changeDeliveryAddress = (address) => {
-        const addresses = [...this.state.address]
-        const index = addresses.indexOf(address);
-        addresses.forEach(function(key){
-            key.isdefault = false;
-        });
-        addresses[index].isdefault = true;
-        this.setState({ address:addresses,deliveryaddress:address })
+    changeSelectedAddress = (deliveryaddress) => {
+        this.setState({ deliveryaddress });
     }
 
     addToCart = (product) => {
@@ -92,7 +78,7 @@ class Cart extends Component {
     }
 
     render() {
-        const { products, payments, address, deliveryaddress, paymentby, grandtotal, redirect } = this.state;
+        const { products, payments, deliveryaddress, paymentby, grandtotal, redirect } = this.state;
         return ( 
             <React.Fragment>
                 { redirect ? (<Redirect push to={"/foodie-fast-food/order/" + redirect}/> ) : null }
@@ -107,11 +93,7 @@ class Cart extends Component {
                         />
                         {products.length > 0 ?
                             <React.Fragment>
-                                <Address
-                                    addressData={address}
-                                    isdelete={false} 
-                                    selectedAddress={this.changeDeliveryAddress} 
-                                />
+                                <Address isdelete={false} isSelect={true} selectedAddress={this.changeSelectedAddress} />
                                 <Payments payments={payments} paymentby={this.choosePaymentBy} />
                             </React.Fragment>
                         :

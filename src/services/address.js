@@ -44,3 +44,18 @@ export function saveAddress(address) {
     }
     
 }
+
+export function getSelectedAddress() {
+    let address = addresses.find((address) => address.isdefault === true)
+    address = address ? address: {}
+    return address;
+}
+
+export function changeDeliveryAddress(address) {
+    const index = addresses.indexOf(address);
+    addresses.forEach(function(key){
+        key.isdefault = false;
+    });
+    addresses[index].isdefault = true;
+    return addresses;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import Joi from 'joi';
-import { saveAddress } from '../services/address';
+import { changeDeliveryAddress, getAddress, saveAddress } from '../services/address';
 import AddressForm from './AddressForm';
 import Form from './Form';
 import UserAddress from './UserAddress';
@@ -15,10 +15,14 @@ class Address extends Form {
             "city":"",
             "isdefault": false
         },
+        address:[],
         errors:{},
         toggleAddress: false
     }
-
+    componentDidMount() {
+        let address = getAddress();
+        this.setState({ address })
+    }
     schema = {
         id: Joi.string(),
         addressLine1: Joi.string().min(5).required().label("Flat, House no., Building, Company, Apartment"),
@@ -76,39 +80,42 @@ class Address extends Form {
             "isdefault": false
         }});
     }
-    selectedAddress = (address) => {
-        this.props.selectedAddress(address);
+
+    selectedAddress = (addressobj) => {
+        let address = changeDeliveryAddress(addressobj);
+        if(this.props.selectedAddress) this.props.selectedAddress(addressobj);
+        this.setState({ address })
     }
 
     render() { 
-        const { addressData, isdelete } = this.props;
-        const { data, toggleAddress, errors } = this.state;
+        const { isSelect,isdelete } = this.props;
+        const { data, address, toggleAddress, errors } = this.state;
         return (
             <div className="card">
-            <div className="card-header h5 text-left">Address</div>
-            <div className="card-body text-left">
-            <h5 className="card-title">My addresses</h5>
-            <UserAddress 
-                addressData={addressData}
-                selectedAddress={this.selectedAddress}
-                handleEdit={this.handleEdit}
-                isdelete={isdelete}
-            />   
-            </div>
-            {toggleAddress ? 
-            <AddressForm 
-                data={data}
-                errors={errors}
-                handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
-                toggleClose={this.toggleClose}
-            />
-            :
-            <div className="col-sm-12 mb-2">
-                <button className="btn btn-primary col-sm-3 text-center" onClick={this.toggleOpen}>Add new address</button>
-            </div>
-            
-            }
+                <div className="card-header h5 text-left">Address</div>
+                <div className="card-body text-left">
+                    <UserAddress 
+                        addressData={address}
+                        selectedAddress={this.selectedAddress}
+                        handleEdit={this.handleEdit}
+                        isSelect={isSelect}
+                        isdelete={isdelete}
+                    />   
+                </div>
+                {toggleAddress ? 
+                    <AddressForm 
+                        data={data}
+                        errors={errors}
+                        handleChange={this.handleChange}
+                        handleSubmit={this.handleSubmit}
+                        toggleClose={this.toggleClose}
+                    />
+                :
+                <div className="col-sm-12 mb-2">
+                    <button className="btn btn-primary col-sm-3 text-center" onClick={this.toggleOpen}>Add new address</button>
+                </div>
+                
+                }
             </div>   
             
          );

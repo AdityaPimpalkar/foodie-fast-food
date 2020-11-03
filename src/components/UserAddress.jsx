@@ -1,11 +1,12 @@
 import React from 'react';
 
-const UserAddress = ({addressData, selectedAddress, handleEdit, isdelete}) => {
+const UserAddress = ({addressData, selectedAddress, handleEdit, isSelect, isdelete}) => {
     return (
         addressData.length > 0 ?
 
         addressData.map((address) => (
             <div className="row mb-2 text-left" key={address.id}>
+                {isSelect ?
                 <div className="col-sm-1 text-center align-self-center">
                     {address.isdefault ?
                     <button className="btn btn-success"> <i className="fa fa-check"></i></button>
@@ -13,6 +14,11 @@ const UserAddress = ({addressData, selectedAddress, handleEdit, isdelete}) => {
                     <button className="btn btn-light" onClick={() => selectedAddress(address)}><i className="fa fa-check"></i></button>
                     }
                 </div>
+                :
+                <div className="col-sm-1 text-center align-self-center">
+                    
+                </div>
+                }
                 <div className="col-sm-7 font-weight-bold font-italic">
                     {address.addressLine1} {address.addressLine2} {address.landmark} {address.city}
                 </div>
