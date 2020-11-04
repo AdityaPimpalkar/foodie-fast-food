@@ -3,7 +3,7 @@ import 'react-credit-cards/es/styles-compiled.css';
 import Joi from 'joi';
 
 import Card from './Card';
-import { addCard } from '../services/payments';
+import { addCard, deleteCard, getPaymentOptions } from '../services/payments';
 
 class Payments extends Component {
     state = { 
@@ -13,12 +13,19 @@ class Payments extends Component {
             name: '',
             number: '',
         },
+        payments:{cards:[]},
         focus: '',
         errors:{},
         selectedpayment:{},
         isValid: false,
         toggleCard:false
     }
+
+    componentDidMount() {
+        const payments = getPaymentOptions();
+        this.setState({ payments })
+    }
+
     schema = {
         // id: Joi.string(),
         cvc: Joi.number().min(3).required().label("CVC"),
@@ -92,8 +99,21 @@ class Payments extends Component {
         if (errors) return;
         
         addCard(this.state.data);
-        this.choosePayment(this.state.data);
+        if(this.props.paymentby) this.choosePayment(this.state.data);
         this.toggleClose();
+    }
+
+    handleEdit = (card) => {
+        this.setState({
+            toggleCard: true,
+            isValid: true,
+            errors: {},
+            data: card
+        });
+    }
+
+    handleDelete = (card) => {
+        deleteCard(card);
     }
 
     isValidCallback(type, isValid) {
@@ -120,13 +140,12 @@ class Payments extends Component {
     }
 
     render() {
-        const { payments, isdelete } = this.props;
-         const { data, focus, toggleCard, errors, selectedpayment, isValid } = this.state;
+        const { isSelect, isdelete } = this.props;
+         const { data, payments, focus, toggleCard, errors, selectedpayment, isValid } = this.state;
         return (
             <div className="card">
                 <div className="card-header h5 text-left">Payments</div>
                 <div className="card-body text-left">
-                    <h5 className="card-title">My cards</h5>
                     {payments.cards.length > 0 ?
 
                         payments.cards.map((card,index) => (
@@ -134,18 +153,18 @@ class Payments extends Component {
                             <div className="col-sm-1 text-center align-self-center">
                             
                             {selectedpayment === card ?
-                            <button className="btn btn-success"> <i className="fa fa-check"></i></button>
+                            isSelect ? <button className="btn btn-success"> <i className="fa fa-check"></i></button> : null
                             :
-                            <button className="btn btn-light" onClick={() => this.choosePayment(card)}><i className="fa fa-check"></i></button>
+                            isSelect ?  <button className="btn btn-light" onClick={() => this.choosePayment(card)}><i className="fa fa-check"></i></button> : null
                             }
                             </div>
                             <div className="col-sm-7 font-weight-bold font-italic">
-                                <div>{card.number}</div>
-                                <small>{card.expiry}</small>
+                                <div>***{(card.number).substr(-4)}</div>
+                                {/* <small>{card.expiry}</small> */}
                             </div>
                             <div className="col-sm-3">
-                                {isdelete ? <button className="btn btn-danger float-right" ><i className="fa fa-trash"></i></button>:null}
-                                <button className="btn btn-primary float-right mr-2" ><i className="fa fa-pencil"></i></button>
+                                {isdelete ? <button className="btn btn-danger float-right" ><i className="fa fa-trash" onClick={() => this.handleDelete(card)}></i></button>:null}
+                                <button className="btn btn-primary float-right mr-2" onClick={() => this.handleEdit(card)} ><i className="fa fa-pencil"></i></button>
                                 {/* onClick={() => handleEdit(card)} */}
                             </div>
                         </div>
@@ -175,19 +194,26 @@ class Payments extends Component {
                         </div>
                     
                     }
-                    <h5 className="card-title">Other options</h5>
-                    <div className="row mb-2 text-left">
-                        <div className="col-sm-1 text-center align-self-center">
-                            {selectedpayment === "cashondelivery" ?
-                            <button className="btn btn-success"> <i className="fa fa-check"></i></button>
-                            :
-                            <button className="btn btn-light" onClick={() => this.choosePayment()}><i className="fa fa-check"></i></button>
-                            }
+                    {isSelect ?
+                    <React.Fragment>
+                        <h5 className="card-title">Other options</h5>
+                        <div className="row mb-2 text-left">
+                            <div className="col-sm-1 text-center align-self-center">
+                                {selectedpayment === "cashondelivery" ?
+                                <button className="btn btn-success"> <i className="fa fa-check"></i></button>
+                                :
+                                <button className="btn btn-light" onClick={() => this.choosePayment()}><i className="fa fa-check"></i></button>
+                                }
+                            </div>
+                            <div className="col-sm-7 mt-1 font-weight-bold font-italic">
+                                Cash on delivery
+                            </div>
                         </div>
-                        <div className="col-sm-7 mt-1 font-weight-bold font-italic">
-                            Cash on delivery
-                        </div>
-                    </div>
+                    </React.Fragment>
+                    :
+                    null
+                    }
+                    
                 </div>
             </div>
         );

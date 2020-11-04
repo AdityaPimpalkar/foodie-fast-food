@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import { getProducts } from '../services/product';
 import { addToCart, removeFromCart, deleteFromCart, getCartItems } from '../services/cart';
-import { getPaymentOptions } from "../services/payments";
 import { getSelectedAddress } from "../services/address";
 import { createOrder } from "../services/orders";
 import CartProducts from "./CartProducts";
@@ -14,7 +13,6 @@ class Cart extends Component {
     state = {
         products: [],
         cart: [],
-        payments: [],
         deliveryaddress: {},
         paymentby: {},
         grandtotal: 0,
@@ -23,10 +21,9 @@ class Cart extends Component {
     componentDidMount() {
         let products = getProducts();
         let cart = getCartItems();
-        let payments = getPaymentOptions();
         let deliveryaddress = getSelectedAddress();
         products = this.mapProducts(cart,products);
-        this.setState({ products, cart, payments, deliveryaddress })
+        this.setState({ products, cart, deliveryaddress })
     }
     mapProducts = (cart,products) => {
         let grandtotal = 0;
@@ -78,7 +75,7 @@ class Cart extends Component {
     }
 
     render() {
-        const { products, payments, deliveryaddress, paymentby, grandtotal, redirect } = this.state;
+        const { products, deliveryaddress, paymentby, grandtotal, redirect } = this.state;
         return ( 
             <React.Fragment>
                 { redirect ? (<Redirect push to={"/foodie-fast-food/order/" + redirect}/> ) : null }
@@ -94,7 +91,7 @@ class Cart extends Component {
                         {products.length > 0 ?
                             <React.Fragment>
                                 <Address isdelete={false} isSelect={true} selectedAddress={this.changeSelectedAddress} />
-                                <Payments payments={payments} paymentby={this.choosePaymentBy} />
+                                <Payments paymentby={this.choosePaymentBy} isSelect={true} />
                             </React.Fragment>
                         :
                             null

@@ -45,6 +45,10 @@ export function saveAddress(address) {
     
 }
 
+export function deleteAddress(addressObj) {
+     
+}
+
 export function getSelectedAddress() {
     let address = addresses.find((address) => address.isdefault === true)
     address = address ? address: {}

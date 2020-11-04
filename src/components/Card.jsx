@@ -27,7 +27,8 @@ class Card extends Component {
                             />
                         </div>
                         <div className="col-sm-6 mt-3">
-                            <CardForm 
+                            <CardForm
+                                data={data} 
                                 errors={errors}
                                 handleInputChange={(e) => handleInputChange(e)}
                                 handleInputFocus={(e) => handleInputFocus(e)}
@@ -36,7 +37,7 @@ class Card extends Component {
                     </div>
                     <div className="row mt-3">
                         <div className="col-sm-6">
-                            <button className="btn btn-primary btn-block" onClick={(e) => handleSubmit(e)} disabled={isValid ? false : true}>
+                            <button className="btn btn-primary btn-block" onClick={(e) => handleSubmit(e)} disabled={isValid === true ? false : true}>
                                 Save and choose 
                             </button>
                         </div>

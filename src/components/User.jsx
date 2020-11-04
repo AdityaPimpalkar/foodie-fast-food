@@ -1,6 +1,9 @@
+import React, { Component } from 'react';
 import { getUserDetails } from '../services/user';
 import Address from './Address';
 import Payments from './Payments';
+import { Link } from 'react-router-dom';
+import UserDetails from './UserDetails';
 
 class User extends Component {
     state = {  
@@ -35,7 +38,7 @@ class User extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="card btn text-left pt-2 pb-2 mb-2">
+                        <Link to="/foodie-fast-food/orders" className="card btn text-left pt-2 pb-2 mb-2">
                             <div className="row">
                                 <div className="col-md-3 mt-2 mb-2 d-flex align-items-center justify-content-center">
                                     <i className="fa fa-shopping-bag fa-lg"></i>
@@ -44,7 +47,7 @@ class User extends Component {
                                     My Orders
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                         <div className="card btn text-left pt-2 pb-2 mb-2" onClick={() => this.handleClick('address')}>
                             <div className="row">
                                 <div className="col-md-3 mt-2 mb-2 d-flex align-items-center justify-content-center">
@@ -70,10 +73,10 @@ class User extends Component {
                         {(() => {
                         switch (selected) {
                             case 'address': return <Address isdelete={true} />;
-                            case 'payments': return '';
+                            case 'payments': return <Payments isdelete={true} />;
                             case 3: return <span className="fnt-16 text-primary"><i className="fa fa-circle" aria-hidden="true"></i> Your order is out for delivery</span>;
                             case 4: return <span className="fnt-16 text-success"><i className="fa fa-circle" aria-hidden="true"></i> Your order has been delivered</span>;
-                            default: return '';
+                            default: return <UserDetails />;
                         }
                         })()}
                     </div>

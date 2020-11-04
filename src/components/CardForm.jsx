@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CardForm = ({ errors, handleInputChange, handleInputFocus }) => {
+const CardForm = ({ data ,errors, handleInputChange, handleInputFocus }) => {
     return (
         <>  
         <div className="col-sm-9 mb-3">
@@ -13,7 +13,8 @@ const CardForm = ({ errors, handleInputChange, handleInputFocus }) => {
                 name="number"
                 autoComplete="false" 
                 maxLength="19"
-                placeholder="Card Number" 
+                placeholder="Card Number"
+                defaultValue={data.number} 
             />
         </div>
         <div className="col-sm-9 mb-3">
@@ -26,6 +27,7 @@ const CardForm = ({ errors, handleInputChange, handleInputFocus }) => {
                 name="name" 
                 autoComplete="false" 
                 placeholder="Name" 
+                defaultValue={data.name} 
             />
         </div>
         <div className="col">
@@ -39,7 +41,8 @@ const CardForm = ({ errors, handleInputChange, handleInputFocus }) => {
                     id="expiry" 
                     name="expiry" 
                     autoComplete="false" 
-                    placeholder="Valid Thru" 
+                    placeholder="Valid Thru"
+                    defaultValue={data.expiry} 
                 />
             </div>
             <div className="col-sm-3">
@@ -51,7 +54,8 @@ const CardForm = ({ errors, handleInputChange, handleInputFocus }) => {
                     id="cvc" 
                     name="cvc" 
                     autoComplete="false" 
-                    placeholder="CVC" 
+                    placeholder="CVC"
+                    defaultValue={data.cvc} 
                 />
             </div>
             </div>

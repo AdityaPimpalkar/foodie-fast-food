@@ -4,7 +4,7 @@ let user = {
     last_name:'Pimpalkar',
     phone:"9757135624",
     image:'',
-    emailId:'adipimpalkar14@gmail.com',
+    email_address:'adipimpalkar14@gmail.com',
     cart:[
         {
             "productId": "3",
@@ -40,7 +40,7 @@ let user = {
     payments: {
         cards:[
             {
-                cvv:"234",
+                cvc:"234",
                 expiry:"01/23",
                 name:"XYZ",
                 number:"2345678901234567"
