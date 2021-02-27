@@ -4,7 +4,7 @@ import burger3 from "../images/burger3.png"
 import burger4 from "../images/burger4.jpg"
 import burger5 from "../images/burger5.jpg"
 import burger6 from "../images/burger6.jpg"
-
+import httpService from "./httpService";
 const products = [
     {
         "id":"1",
@@ -56,7 +56,16 @@ const products = [
     }
 ]
 
-export function getProducts() {
+export async function getProducts() {
+    const products = await httpService.get('http://localhost:3001/api/products', {
+        headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:8887'
+        }
+    }).then((res)=> {
+        return res.data
+    }).catch((error) => {
+        console.log(error)
+    });
     return products;
 }
 

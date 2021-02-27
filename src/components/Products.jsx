@@ -32,9 +32,9 @@ class Products extends Component {
         this.setState({ products });
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         let cart = getCartItems();
-        let products = getProducts();
+        let products = await getProducts();
         products = this.mapProducts(cart,products);
         this.setState({ products })
     }
@@ -43,8 +43,8 @@ class Products extends Component {
         return ( 
             <div className="row">
                 {products.map((product) => (
-                    <div key={product.id} className="col-sm-2 pb-2">
-                        <Card key={product.id}>
+                    <div key={product._id} className="col-sm-2 pb-2">
+                        <Card key={product._id}>
                             <Card.Img variant="top" src={product.img} />
                             <Card.Body>
                                 <Card.Title className="h6">

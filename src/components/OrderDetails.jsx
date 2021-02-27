@@ -1,9 +1,10 @@
-import React, { Component } from 'react';   
+import React, { Component } from 'react';  
+import { Link } from 'react-router-dom'; 
 import { GetOrderDetails } from '../services/orders';
 import OrderLogistics from './OrderLogistics';
 import OrderProgress from './OrderProgress';
 import OrderSummary from './OrderSummary';
-
+import { url } from '../config.json';
 class OrderDetails extends Component {
     state = { 
         order: {
@@ -34,6 +35,14 @@ class OrderDetails extends Component {
             <React.Fragment>
             <div className="row justify-content-center">
                 <div className="col-sm-11">
+                <nav aria-label="breadcrumb">
+                    <ol className="breadcrumb bg-white">
+                        <li className="breadcrumb-item"><Link to={url}>Home</Link></li>
+                        <li className="breadcrumb-item"><Link to={url + "user"}>My Account</Link></li>
+                        <li className="breadcrumb-item"><Link to={url + "orders"}>Orders</Link></li>
+                        <li className="breadcrumb-item active" aria-current="page">{order.order_number}</li>
+                    </ol>
+                </nav>
                     <div className="row">
                         <div className="col-sm-8">
                             <OrderLogistics order={order}/>

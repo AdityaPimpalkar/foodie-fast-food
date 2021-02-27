@@ -55,3 +55,10 @@ export default user;
 export function getUserDetails() {
     return user;
 }
+
+export function saveUser(userobj) {
+    user.first_name = userobj.first_name;
+    user.last_name = userobj.last_name;
+    user.email_address = userobj.email_address
+    return { first_name: user.first_name,last_name: user.last_name, email_address:user.email_address }
+}
