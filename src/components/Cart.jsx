@@ -18,9 +18,9 @@ class Cart extends Component {
         grandtotal: 0,
         redirect: false,
     }
-    componentDidMount() {
-        let products = getProducts();
-        let cart = getCartItems();
+    async componentDidMount() {
+        let products = await getProducts();
+        let cart = await getCartItems();
         let deliveryaddress = getSelectedAddress();
         products = this.mapProducts(cart,products);
         this.setState({ products, cart, deliveryaddress })
@@ -29,7 +29,7 @@ class Cart extends Component {
         let grandtotal = 0;
         products = cart.map((cartObj) => {
             let product = products.find(
-                (product) => product.id === cartObj.productId
+                (product) => product._id === cartObj.productId
             );
             product = { ...product, total:product.price*cartObj.selectedItems, selectedItems: cartObj.selectedItems };
             grandtotal += product.total;
@@ -47,22 +47,22 @@ class Cart extends Component {
         this.setState({ deliveryaddress });
     }
 
-    addToCart = (product) => {
-        const cart = addToCart(product)
+    addToCart = async (product) => {
+        const cart = await addToCart(product)
         const products = this.mapProducts(cart,this.state.products)
         this.props.handleCartCount();
         this.setState({ products, cart });
     }
 
-    removeFromCart = (product) => {
-        const cart = removeFromCart(product);
+    removeFromCart = async (product) => {
+        const cart = await removeFromCart(product);
         const products = this.mapProducts(cart,this.state.products)
         this.props.handleCartCount();
         this.setState({ products, cart });
     }
 
-    deleteFromCart = (product) => {
-        const cart = deleteFromCart(product);
+    deleteFromCart = async (product) => {
+        const cart = await deleteFromCart(product);
         const products = this.mapProducts(cart,this.state.products)
         this.props.handleCartCount();
         this.setState({ products, cart });

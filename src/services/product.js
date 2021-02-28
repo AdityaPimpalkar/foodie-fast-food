@@ -57,7 +57,7 @@ const products = [
 ]
 
 export async function getProducts() {
-    const products = await httpService.get('http://localhost:3001/api/products', {
+    const products = await httpService.get('http://localhost:3001/api/product', {
         headers: {
             'Access-Control-Allow-Origin': 'http://localhost:8887'
         }

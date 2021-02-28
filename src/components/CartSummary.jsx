@@ -12,7 +12,7 @@ const CartSummary = ({products, grandtotal, deliveryaddress, paymentby, handlePl
                 <div className="card-body">
                     <h5 className="card-title text-center">Summary</h5>
                     {products.map((product) => (
-                        <div className="card-text h6" key={product.id}>
+                        <div className="card-text h6" key={product._id}>
                             <div className="col mb-2">
                                 {product.name} (₹{product.price}x{product.selectedItems})
                                 <span className="float-right">₹{product.total}</span>

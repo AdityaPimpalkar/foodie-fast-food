@@ -5,7 +5,7 @@ const CartProducts = ({products, addToCart, removeFromCart, deleteFromCart}) => 
         products.length > 0 ? 
 
         products.map((product) => (
-            <div className="card text-left" key={product.id}>
+            <div className="card text-left" key={product._id}>
                 <div className="card-body">
                 <img src={product.img} className="float-left col-sm-1" alt=""></img>
                 <h5 className="card-title float-left mt-2">

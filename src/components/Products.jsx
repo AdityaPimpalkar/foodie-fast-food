@@ -10,7 +10,7 @@ class Products extends Component {
 
     mapProducts = (cart,products) => {
         products = products.map((product) => {
-            const inCart = cart.find((item) => item.productId === product.id);
+            const inCart = cart.find((item) => item.productId === product._id);
             if(inCart) product = {...product, selectedItems: inCart.selectedItems }
             else delete product.selectedItems;
             return product;
@@ -18,22 +18,22 @@ class Products extends Component {
         return products;
     }
 
-    addToCart = (product) => {
-        const cart = addToCart(product)
+    addToCart = async (product) => {
+        const cart = await addToCart(product)
         const products = this.mapProducts(cart,this.state.products)
         this.props.handleCartCount();
         this.setState({ products });
     }
 
-    removeFromCart = (product) => {
-        const cart = removeFromCart(product);
+    removeFromCart = async (product) => {
+        const cart = await removeFromCart(product);
         const products = this.mapProducts(cart,this.state.products)
         this.props.handleCartCount();
         this.setState({ products });
     }
 
     async componentDidMount() {
-        let cart = getCartItems();
+        let cart = await getCartItems();
         let products = await getProducts();
         products = this.mapProducts(cart,products);
         this.setState({ products })

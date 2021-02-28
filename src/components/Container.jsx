@@ -13,11 +13,13 @@ class Container extends Component {
     state = {
         totalCartItems: 0
     }
-    componentDidMount() {
-        this.setState({ totalCartItems: getTotalItems() })
+    async componentDidMount() {
+        const totalCartItems = await getTotalItems()
+        this.setState({ totalCartItems })
     }
-    handleCartCount = () => {
-        this.setState({ totalCartItems: getTotalItems() })
+     handleCartCount = async () => {
+        const totalCartItems = await getTotalItems()
+        this.setState({ totalCartItems })
     } 
     render() {
         return (

@@ -1,56 +1,79 @@
-import user from './user.js'
+import httpService from "./httpService";
 
-let { cart } = user
+const apiEndpoint = `http://localhost:3001/api/cart`;
 
-//const cart = [
-    // {
-    //     "productId": "3",
-    //     "selectedItems": 2
-    // }
-//]
-
-
-export function getCartItems() {
-    return cart;
+export async function getCartItems() {
+    const { Products } = await httpService.get(`${apiEndpoint}`, {
+        headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:8887'
+        },
+        params:{
+            id: ''
+        }
+    }).then((res)=> {
+        return res.data
+    }).catch((error) => {
+        console.log(error)
+    });
+    return Products;
 }
 
 
-export function getTotalItems() {
-    return cart.length;
+export async function getTotalItems() {
+    const { Products } = await httpService.get(`${apiEndpoint}` , {
+        headers: { 
+            'Access-Control-Allow-Origin': 'http://localhost:8887'
+        },
+        params:{
+            id: ''
+        }
+    }).then((res)=> {
+        return res.data
+    }).catch((error) => {
+        console.log(error)
+    });
+    return Products.length;
 }
 
-export function addToCart(product) {
-    const inCart = cart.find((cartobj) => cartobj.productId === product.id)
-    if(inCart) {
-        const index = cart.indexOf(inCart);
-        cart[index].selectedItems++
-    } else {
-        cart.push({
-            productId: product.id,
-            selectedItems: 1
-        })
-    }
-    return cart;
+export async function addToCart(product) {
+    const { Products } = await httpService.post(`${apiEndpoint}/`, product, {
+        headers: { 
+            'Access-Control-Allow-Origin': 'http://localhost:8887'
+        },
+    }).then((res)=> {
+        return res.data
+    }).catch((error) => {
+        console.log(error)
+    });
+    return Products;
 }
 
-export function removeFromCart(product) {
-    const inCart = cart.find(cartobj => cartobj.productId === product.id);
-    if(inCart) {
-        const index = cart.indexOf(inCart);
-        let itemCount = cart[index].selectedItems;
-        cart[index].selectedItems--
-        itemCount = cart[index].selectedItems;
-        if(itemCount === 0) deleteFromCart(product)
-    }
-    return cart;
+export async function removeFromCart(product) {
+    const { Products } = await httpService.put(`${apiEndpoint}/`, product, {
+        headers: { 
+            'Access-Control-Allow-Origin': 'http://localhost:8887'
+        },
+    }).then((res)=> {
+        return res.data
+    }).catch((error) => {
+        console.log(error)
+    });
+    return Products;
 }
 
-export function deleteFromCart(product) {
-    const cartobj = cart.find(cartobj => cartobj.productId === product.id);
-    cart.splice(cart.indexOf(cartobj), 1)
-    return cart;
+export async function deleteFromCart(product) {
+    const { Products } = await httpService.delete(`${apiEndpoint}/${product._id}`, {
+        headers: { 
+            'Access-Control-Allow-Origin': 'http://localhost:8887'
+        },
+    }).then((res)=> {
+        return res.data
+    }).catch((error) => {
+        console.log(error)
+    });
+    return Products;
 }
 
 export function clearCart() {
-    cart = []
+    //cart = []
 }
