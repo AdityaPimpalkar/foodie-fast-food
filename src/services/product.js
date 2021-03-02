@@ -5,6 +5,8 @@ import burger4 from "../images/burger4.jpg"
 import burger5 from "../images/burger5.jpg"
 import burger6 from "../images/burger6.jpg"
 import httpService from "./httpService";
+import { toast } from "react-toastify";
+
 const products = [
     {
         "id":"1",
@@ -56,17 +58,19 @@ const products = [
     }
 ]
 
+const apiEndpoint = 'http://localhost:3001/api/product'
+ 
 export async function getProducts() {
-    const products = await httpService.get('http://localhost:3001/api/product', {
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:8887'
-        }
+    const Products = await httpService.get(apiEndpoint, {
     }).then((res)=> {
-        return res.data
+        if(res.data !== '') return res.data;
+        toast.error("Error loading products.");
     }).catch((error) => {
-        console.log(error)
+        if(error.isAxiosError) {
+            return []
+        }
     });
-    return products;
+    return Products;
 }
 
 export function getProduct(id) {

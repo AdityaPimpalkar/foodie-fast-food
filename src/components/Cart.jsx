@@ -78,7 +78,7 @@ class Cart extends Component {
         const { products, deliveryaddress, paymentby, grandtotal, redirect } = this.state;
         return ( 
             <React.Fragment>
-                { redirect ? (<Redirect push to={"/foodie-fast-food/order/" + redirect}/> ) : null }
+                { redirect ? (<Redirect push to={"/order/" + redirect}/> ) : null }
                 <div className="row">
                     <div className="col-sm-8">
                         <div className="card-header h5 text-left">My Cart</div>

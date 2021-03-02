@@ -1,7 +1,11 @@
 import React from 'react';
 import './App.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 import Container from './components/Container';
 import { useGoogleOneTapLogin } from 'react-google-one-tap-login';
+
+
+
 function App() {
   useGoogleOneTapLogin({
     onError: error => console.log(error),
