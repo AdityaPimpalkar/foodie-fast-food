@@ -5,7 +5,7 @@ const UserAddress = ({addressData, selectedAddress, handleEdit, isSelect, isdele
         addressData.length > 0 ?
 
         addressData.map((address) => (
-            <div className="row mb-2 text-left" key={address.id}>
+            <div className="row mb-2 text-left" key={address._id}>
                 {isSelect ?
                 <div className="col-sm-1 text-center align-self-center">
                     {address.isdefault ?
@@ -19,8 +19,8 @@ const UserAddress = ({addressData, selectedAddress, handleEdit, isSelect, isdele
                     
                 </div>
                 }
-                <div className="col-sm-7 font-weight-bold font-italic">
-                    {address.addressLine1} {address.addressLine2} {address.landmark} {address.city}
+                <div className="col-sm-7 font-italic">
+                    {address.addressLine1} {address.addressLine2} {address.landmark} {address.city} {address.pincode} 
                 </div>
                 <div className="col-sm-3">
                     {isdelete ? <button className="btn btn-danger float-right" ><i className="fa fa-trash"></i></button>:null}

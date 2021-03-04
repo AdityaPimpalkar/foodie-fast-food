@@ -12,6 +12,7 @@ class Payments extends Component {
             expiry: '',
             name: '',
             number: '',
+            brand: ''
         },
         payments:{cards:[]},
         focus: '',
@@ -21,17 +22,18 @@ class Payments extends Component {
         toggleCard:false
     }
 
-    componentDidMount() {
-        const payments = getPaymentOptions();
-        this.setState({ payments })
+    async componentDidMount() {
+        const cards = await getPaymentOptions();
+        this.setState({ payments: { cards: cards } })
     }
 
     schema = {
-        // id: Joi.string(),
+        _id: Joi.string().optional().allow(),
         cvc: Joi.number().min(3).required().label("CVC"),
         expiry: Joi.string().min(4).max(7).required().label("EXPIRY"),
         name: Joi.string().required().label("NAME"),
-        number: Joi.string().min(16).required().label("CARD NUMBER")
+        number: Joi.string().min(16).required().label("CARD NUMBER"),
+        brand: Joi.string().optional()
     }
 
     choosePayment = (card) => {
@@ -55,7 +57,6 @@ class Payments extends Component {
         if(error) {
             const errors = {};
             for (let item of error.details) errors[item.path[0]] = item.message;
-            console.log(errors)
             return errors;
         }else {
             return null
@@ -93,12 +94,12 @@ class Payments extends Component {
         }
     }
 
-    handleSubmit = () => {
+    handleSubmit = async () => {
         const errors = this.validate();
-        this.setState({ errors: errors || {} });
         if (errors) return;
         
-        addCard(this.state.data);
+        const cards = await addCard(this.state.data);
+        this.setState({ errors: errors || {}, payments: { cards: cards }});
         if(this.props.paymentby) this.choosePayment(this.state.data);
         this.toggleClose();
     }
@@ -112,12 +113,15 @@ class Payments extends Component {
         });
     }
 
-    handleDelete = (card) => {
-        deleteCard(card);
+    handleDelete =  async (card) => {
+        const cards= await deleteCard(card);
+        this.setState({ payments: { cards: cards }});
     }
 
     isValidCallback(type, isValid) {
-        this.setState({ isValid })
+        const data = {...this.state.data}
+        data.brand = type ? type.issuer : '';
+        this.setState({ isValid, data });
     }
 
 
@@ -135,6 +139,7 @@ class Payments extends Component {
                 focus: '',
                 name: '',
                 number: '',
+                brand: ''
             }
         });
     }
@@ -152,20 +157,26 @@ class Payments extends Component {
                         <div className="row mb-2 text-left" key={index}>
                             <div className="col-sm-1 text-center align-self-center">
                             
-                            {selectedpayment === card ?
+                            {selectedpayment.number === card.number ?
                             isSelect ? <button className="btn btn-success"> <i className="fa fa-check"></i></button> : null
                             :
                             isSelect ?  <button className="btn btn-light" onClick={() => this.choosePayment(card)}><i className="fa fa-check"></i></button> : null
                             }
                             </div>
-                            <div className="col-sm-7 font-weight-bold font-italic">
-                                <div>***{(card.number).substr(-4)}</div>
-                                {/* <small>{card.expiry}</small> */}
+                            <div className="col-sm-7 font-italic">
+                                 <div className="mt-1"> 
+                                        <img alt="card-brand" src={ card.brand === 'mastercard' ?
+                                        'https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg'
+                                        :
+                                        'https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg'
+                                        }  width="40" className="mr-1" /> 
+                                     ***{(card.number).substr(-4)}
+                                    </div>
                             </div>
                             <div className="col-sm-3">
                                 {isdelete ? <button className="btn btn-danger float-right" ><i className="fa fa-trash" onClick={() => this.handleDelete(card)}></i></button>:null}
                                 <button className="btn btn-primary float-right mr-2" onClick={() => this.handleEdit(card)} ><i className="fa fa-pencil"></i></button>
-                                {/* onClick={() => handleEdit(card)} */}
+                                
                             </div>
                         </div>
                         ))
@@ -205,7 +216,7 @@ class Payments extends Component {
                                 <button className="btn btn-light" onClick={() => this.choosePayment()}><i className="fa fa-check"></i></button>
                                 }
                             </div>
-                            <div className="col-sm-7 mt-1 font-weight-bold font-italic">
+                            <div className="col-sm-7 mt-1 font-italic">
                                 Cash on delivery
                             </div>
                         </div>

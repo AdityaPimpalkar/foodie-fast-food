@@ -8,30 +8,37 @@ const AddressForm = ({ data, errors, handleChange, handleSubmit, toggleClose}) =
                 <div className="row mb-2">
                 <div className="col-sm-12">
                     <label>Flat, House no., Building, Company, Apartment</label>
-                    <input type="text" className={errors.addressLine1 ?  "form-control is-invalid": "form-control"} id="addressLine1" name="addressLine1" value={data.addressLine1} autoComplete="false" onChange={(e) => handleChange(e)} placeholder="" />
+                    <input type="text" className={errors.addressLine1 ?  "form-control is-invalid": "form-control"} id="addressLine1" name="addressLine1" value={data.addressLine1} autoComplete="off" onChange={(e) => handleChange(e)} placeholder="" />
                     {errors.addressLine1 && (
                         <span className="help-block text-danger">{errors.addressLine1}</span>
                     )}
                 </div>
                 <div className="col-sm-12">
                     <label>Area, Colony, Street, Sector, Village</label>
-                    <input type="text" className={errors.addressLine2 ?  "form-control is-invalid": "form-control"} id="addressLine2" name="addressLine2" value={data.addressLine2} autoComplete="false" onChange={(e) => handleChange(e)} placeholder="" />
+                    <input type="text" className={errors.addressLine2 ?  "form-control is-invalid": "form-control"} id="addressLine2" name="addressLine2" value={data.addressLine2} autoComplete="off" onChange={(e) => handleChange(e)} placeholder="" />
                     {errors.addressLine2 && (
                         <span className="help-block text-danger">{errors.addressLine2}</span>
                     )}
                 </div>
                 <div className="col-sm-12">
                     <label>Landmark</label>
-                    <input type="text" className={errors.landmark ?  "form-control is-invalid": "form-control"} id="landmark" name="landmark" value={data.landmark} autoComplete="false" onChange={(e) => handleChange(e)} placeholder="" />
+                    <input type="text" className={errors.landmark ?  "form-control is-invalid": "form-control"} id="landmark" name="landmark" value={data.landmark} autoComplete="off" onChange={(e) => handleChange(e)} placeholder="" />
                     {errors.landmark && (
                         <span className="help-block text-danger">{errors.landmark}</span>
                     )}
                 </div>
                 <div className="col-sm-12">
                     <label>Town/City</label>
-                    <input type="text" className={errors.city ?  "form-control is-invalid": "form-control"} id="city" name="city" value={data.city} autoComplete="false" onChange={(e) => handleChange(e)} placeholder="" />
+                    <input type="text" className={errors.city ?  "form-control is-invalid": "form-control"} id="city" name="city" value={data.city} autoComplete="off" onChange={(e) => handleChange(e)} placeholder="" />
                     {errors.city && (
                         <span className="help-block text-danger">{errors.city}</span>
+                    )}
+                </div>
+                <div className="col-sm-12">
+                    <label>Pincode</label>
+                    <input type="text" className={errors.pincode ?  "form-control is-invalid": "form-control"} id="pincode" name="pincode" value={data.pincode} autoComplete="off" onChange={(e) => handleChange(e)} placeholder="" />
+                    {errors.pincode && (
+                        <span className="help-block text-danger">{errors.pincode}</span>
                     )}
                 </div>
                 </div>

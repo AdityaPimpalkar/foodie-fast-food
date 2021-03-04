@@ -16,15 +16,17 @@ class Card extends Component {
             <div className="card">
                 <div className="card-body">
                     <div className="row">
-                        <div className="col-sm-6">
+                        <div className="col-sm-6 text-center">
                             <Cards
                                 cvc={data.cvc}
                                 expiry={data.expiry}
                                 focused={focus}
                                 name={data.name}
                                 number={data.number}
+                                acceptedCards={['visa', 'mastercard']}
                                 callback={(type, isValid) => isValidCallback(type, isValid)}
                             />
+                            Only mastercard and visa cards are acceptable.
                         </div>
                         <div className="col-sm-6 mt-3">
                             <CardForm
@@ -33,8 +35,10 @@ class Card extends Component {
                                 handleInputChange={(e) => handleInputChange(e)}
                                 handleInputFocus={(e) => handleInputFocus(e)}
                             />
+                            
                         </div>
                     </div>
+                    
                     <div className="row mt-3">
                         <div className="col-sm-6">
                             <button className="btn btn-primary btn-block" onClick={(e) => handleSubmit(e)} disabled={isValid === true ? false : true}>

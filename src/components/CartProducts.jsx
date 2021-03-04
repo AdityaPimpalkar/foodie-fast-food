@@ -8,9 +8,9 @@ const CartProducts = ({products, addToCart, removeFromCart, deleteFromCart}) => 
             <div className="card text-left" key={product._id}>
                 <div className="card-body">
                 <img src={product.img} className="float-left col-sm-1" alt=""></img>
-                <h5 className="card-title float-left mt-2">
+                <div className="card-title float-left mt-2">
                     {product.name} 
-                </h5>
+                </div>
                 <div className="col-sm-3 float-right">
                     <button
                         className="btn btn-primary float-left mr-2"

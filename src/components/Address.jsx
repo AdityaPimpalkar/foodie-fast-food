@@ -8,57 +8,63 @@ import UserAddress from './UserAddress';
 class Address extends Form {
     state = {
         data: {
-            "id":"0",
+            "_id":"",
             "addressLine1":"",
             "addressLine2":"",
             "landmark":"",
             "city":"",
+            "pincode":"",
             "isdefault": false
         },
         address:[],
         errors:{},
         toggleAddress: false
     }
-    componentDidMount() {
-        let address = getAddress();
+    async componentDidMount() {
+        let address = await getAddress();
         this.setState({ address })
     }
     schema = {
-        id: Joi.string(),
+        _id: Joi.string().optional().allow(''),
         addressLine1: Joi.string().min(5).required().label("Flat, House no., Building, Company, Apartment"),
         addressLine2: Joi.string().min(5).required().label("Area, Colony, Street, Sector, Village"),
         landmark: Joi.string().min(5).required().label("Landmark"),
         city: Joi.string().min(5).required().label("Town/City"),
+        pincode: Joi.string().min(5).max(6).required().label("Pincode"),
         isdefault: Joi.boolean()
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
         const errors = this.validate();
         this.setState({ errors: errors || {} });
         if (errors) return;
         
-        const address = saveAddress(this.state.data);
-        this.selectedAddress(address);
+        const address = await saveAddress(this.state.data);
+        if(this.props.selectedAddress) this.props.selectedAddress(this.state.data);
         this.toggleClose();
         this.setState({ data: {
-            "id":"0",
+            "_id":"",
             "addressLine1":"",
             "addressLine2":"",
             "landmark":"",
             "city":"",
+            "pincode":"",
             "isdefault": false
-        }});
+        },
+        address
+        });
     };
 
     handleEdit = (address) => {
         this.toggleOpen();
         const addressdata = {...this.state.data};
-        addressdata.id = address.id
+        addressdata._id = address._id
         addressdata.addressLine1 = address.addressLine1
         addressdata.addressLine2 = address.addressLine2
         addressdata.landmark = address.landmark
         addressdata.city = address.city
+        addressdata.pincode = address.pincode
         addressdata.isdefault = true
         this.setState({ data: address });
     }
@@ -72,18 +78,18 @@ class Address extends Form {
         toggleAddress: false,
         errors: {},
         data: {
-            "id":"0",
+            "_id":"0",
             "addressLine1":"",
             "addressLine2":"",
             "landmark":"",
             "city":"",
+            "pincode":"",
             "isdefault": false
         }});
     }
 
-    selectedAddress = (addressobj) => {
-        let address = changeDeliveryAddress(addressobj);
-        if(this.props.selectedAddress) this.props.selectedAddress(addressobj);
+    selectedAddress = async (addressobj) => {
+         let address = await changeDeliveryAddress(addressobj);
         this.setState({ address })
     }
 

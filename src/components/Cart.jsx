@@ -21,7 +21,7 @@ class Cart extends Component {
     async componentDidMount() {
         let products = await getProducts();
         let cart = await getCartItems();
-        let deliveryaddress = getSelectedAddress();
+        let deliveryaddress = await getSelectedAddress();
         products = this.mapProducts(cart,products);
         this.setState({ products, cart, deliveryaddress })
     }

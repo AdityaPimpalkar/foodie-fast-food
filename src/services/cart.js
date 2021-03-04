@@ -11,6 +11,7 @@ export async function getCartItems() {
     }).then((res)=> {
         if(res.data !== '') return res.data.Products;
         toast.error("Error loading cart items.");
+        return [];
     }).catch((error) => {
         if(error.isAxiosError) {
             return []
@@ -27,6 +28,7 @@ export async function getTotalItems() {
     }).then((res)=> {
         if(res.data !== '') return res.data.Products.length;
         toast.error("Error loading cart count.");
+        return [];
     }).catch((error) => {
         if(error.isAxiosError) {
             return 0
@@ -43,6 +45,7 @@ export async function addToCart(product) {
             return res.data.Products;
         } 
         toast.error("Error loading cart items.");
+        return [];
     }).catch((error) => {
         if(error.isAxiosError) {
             return []
@@ -59,6 +62,7 @@ export async function removeFromCart(product) {
     }).then((res)=> {
         if(res.data !== '') return res.data.Products;
         toast.error("Error loading cart items.");
+        return [];
     }).catch((error) => {
         if(error.isAxiosError) {
             return []
@@ -78,6 +82,7 @@ export async function deleteFromCart(product) {
             return res.data.Products;
         }
         toast.error("Error loading cart items.");
+        return [];
     }).catch((error) => {
         if(error.isAxiosError) {
             return []

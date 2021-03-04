@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
  import { getCartItems, addToCart, deleteFromCart } from '../services/cart';
 import { getProducts } from '../services/product';
 

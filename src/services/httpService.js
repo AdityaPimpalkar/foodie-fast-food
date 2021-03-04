@@ -10,7 +10,6 @@ axios.interceptors.response.use(null, error => {
     error.response.status >= 400 &&
     error.response.status < 500;
 
-    console.log(error.status)
   if (!expectedError) {
     if(error.message === 'Network Error') toast.error('Please check your network.');
     else toast.error("An unexpected error occurrred.");
