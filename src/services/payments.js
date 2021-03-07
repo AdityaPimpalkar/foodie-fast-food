@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 //const { payments } = user
 
-const apiEndpoint = 'http://localhost:3001/api/payments';
+const apiEndpoint = 'http://localhost:3001/api/payment';
 
 export async function getPaymentOptions() {
     const Payments = await httpService.get(apiEndpoint, {
