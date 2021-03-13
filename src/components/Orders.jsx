@@ -41,7 +41,7 @@ class Orders extends Component {
               <Link
                 to={url + "order/" + order.order_number}
                 className="card card-box text-left mb-4 text-dark btn"
-                key={order.order_id}
+                key={order._id}
               >
                 <OrderCard order={order} />
               </Link>

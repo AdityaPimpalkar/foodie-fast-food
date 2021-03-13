@@ -6,15 +6,6 @@ let { addresses } = user;
 
 const apiEndpoint = "http://localhost:3001/api/address";
 
-// export const addressObj = {
-//     id:"",
-//     addressLine1:"",
-//     addressLine2:"",
-//     landmark:"",
-//     city:"",
-//     isdefault: false
-// }
-
 export async function getAddress() {
   const Addresses = await httpService
     .get(apiEndpoint, {})
@@ -52,29 +43,11 @@ export async function saveAddress(address) {
       }
     });
   return Address;
+}
 
-  // addresses.forEach(function(key){
-  //     key.isdefault = false;
-  // });
-
-  // if(address.id === "0") {
-  //     const newId = addresses.length+1;
-  //     address.id = newId.toString()
-  //     address.isdefault = true;
-  //     addresses.push(address)
-  //     return address
-  // } else {
-  //     const addressInDB = addresses.find((savedaddress) => savedaddress.id === address.id)
-  //     const index = addresses.indexOf(addressInDB)
-  //     addressInDB.id = address.id
-  //     addressInDB.addressLine1 = address.addressLine1
-  //     addressInDB.addressLine2 = address.addressLine2
-  //     addressInDB.landmark = address.landmark
-  //     addressInDB.city = address.city
-  //     addressInDB.isdefault = true;
-  //     addresses[index] = addressInDB
-  //     return addressInDB
-  // }
+export async function updateAddress(addressObj) {
+  const address = await httpService.put(apiEndpoint, addressObj);
+  return address;
 }
 
 export function deleteAddress(addressObj) {}
@@ -90,23 +63,6 @@ export async function getSelectedAddress() {
 }
 
 export async function changeDeliveryAddress(address) {
-  const Address = await httpService
-    .put(apiEndpoint, address, {
-      params: {
-        id: "",
-      },
-    })
-    .then((res) => {
-      if (res.data !== "") {
-        toast.success("Changed the delivery address.");
-        return res.data.Addresses;
-      }
-      toast.error("Error updating address.");
-    })
-    .catch((error) => {
-      if (error.isAxiosError) {
-        return [];
-      }
-    });
+  const Address = await httpService.put(`${apiEndpoint}/${address._id}`);
   return Address;
 }
