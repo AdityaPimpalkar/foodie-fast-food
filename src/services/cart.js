@@ -4,93 +4,91 @@ import { toast } from "react-toastify";
 const apiEndpoint = `http://localhost:3001/api/cart`;
 
 export async function getCartItems() {
-    const CartItems = await httpService.get(`${apiEndpoint}`, {
-        params:{
-            id: ''
-        }
-    }).then((res)=> {
-        if(res.data !== '') return res.data.Products;
-        toast.error("Error loading cart items.");
+  const CartItems = await httpService
+    .get(`${apiEndpoint}`)
+    .then((res) => {
+      if (res.data !== "") return res.data.Products;
+      toast.error("Error loading cart items.");
+      return [];
+    })
+    .catch((error) => {
+      if (error.isAxiosError) {
         return [];
-    }).catch((error) => {
-        if(error.isAxiosError) {
-            return []
-        }
+      }
     });
-    return CartItems;
+  return CartItems;
 }
 
 export async function getTotalItems() {
-    const TotalCartItems = await httpService.get(`${apiEndpoint}` , {
-        params:{
-            id: ''
-        }
-    }).then((res)=> {
-        if(res.data !== '') return res.data.Products.length;
-        toast.error("Error loading cart count.");
-        return [];
-    }).catch((error) => {
-        if(error.isAxiosError) {
-            return 0
-        }
+  const TotalCartItems = await httpService
+    .get(`${apiEndpoint}`)
+    .then((res) => {
+      if (res.data !== "") return res.data.Products.length;
+      toast.error("Error loading cart count.");
+      return [];
+    })
+    .catch((error) => {
+      if (error.isAxiosError) {
+        return 0;
+      }
     });
-    return TotalCartItems;
+  return TotalCartItems;
 }
 
 export async function addToCart(product) {
-    const Products = await httpService.post(`${apiEndpoint}/`, product, {
-    }).then((res)=> {
-        if(res.data !== ''){
-            toast.success('Product Added To Your Cart!'); 
-            return res.data.Products;
-        } 
-        toast.error("Error loading cart items.");
+  const Products = await httpService
+    .post(`${apiEndpoint}/`, product, {})
+    .then((res) => {
+      if (res.data !== "") {
+        toast.success("Product Added To Your Cart!");
+        return res.data.Products;
+      }
+      toast.error("Error loading cart items.");
+      return [];
+    })
+    .catch((error) => {
+      if (error.isAxiosError) {
         return [];
-    }).catch((error) => {
-        if(error.isAxiosError) {
-            return []
-        }
+      }
     });
-    return Products;
+  return Products;
 }
 
 export async function removeFromCart(product) {
-    const Products = await httpService.put(`${apiEndpoint}/`, product, {
-        headers: { 
-            'Access-Control-Allow-Origin': 'http://localhost:8887'
-        },
-    }).then((res)=> {
-        if(res.data !== '') return res.data.Products;
-        toast.error("Error loading cart items.");
+  const Products = await httpService
+    .put(`${apiEndpoint}/`, product)
+    .then((res) => {
+      if (res.data !== "") return res.data.Products;
+      toast.error("Error loading cart items.");
+      return [];
+    })
+    .catch((error) => {
+      if (error.isAxiosError) {
         return [];
-    }).catch((error) => {
-        if(error.isAxiosError) {
-            return []
-        }
+      }
     });
-    return Products;
+  return Products;
 }
 
 export async function deleteFromCart(product) {
-    const Products = await httpService.delete(`${apiEndpoint}/${product._id}`, {
-        headers: { 
-            'Access-Control-Allow-Origin': 'http://localhost:8887'
-        },
-    }).then((res)=> {
-        if(res.data !== '') {
-            toast.info('Product Removed From The Cart!'); 
-            return res.data.Products;
-        }
-        toast.error("Error loading cart items.");
+  const Products = await httpService
+    .delete(`${apiEndpoint}/${product._id}`)
+    .then((res) => {
+      if (res.data !== "") {
+        toast.info("Product Removed From The Cart!");
+        return res.data.Products;
+      }
+      toast.error("Error loading cart items.");
+      return [];
+    })
+    .catch((error) => {
+      if (error.isAxiosError) {
         return [];
-    }).catch((error) => {
-        if(error.isAxiosError) {
-            return []
-        }
+      }
     });
-    return Products;
+  return Products;
 }
 
 export function clearCart() {
-    //cart = []
+  //cart = []
 }

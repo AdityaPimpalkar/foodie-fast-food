@@ -8,6 +8,7 @@ import Navbar from "./Navbar";
 import Products from "./Products";
 import User from "./User";
 import { url } from "../config.json";
+import auth from "../services/authService";
 
 class Container extends Component {
   state = {
@@ -23,16 +24,16 @@ class Container extends Component {
     const totalCartItems = await getTotalItems();
     this.setState({ totalCartItems });
   };
-  handleLoginSuccess = (response) => {
-    const { profileObj: user } = response;
-    console.log(user);
-    this.setState({ user, isLoggedIn: true });
+  handleLoginSuccess = async (user) => {
+    auth.login(user);
+    const { profileObj: userProfile } = user;
+    this.setState({ user: userProfile, isLoggedIn: true });
   };
   handleLoginError = (error) => {
     console.log(error);
   };
   handleLogout = () => {
-    this.setState({ isLoggedIn: false });
+    this.setState({ user: {}, isLoggedIn: false });
   };
   render() {
     const { user, isLoggedIn, totalCartItems } = this.state;

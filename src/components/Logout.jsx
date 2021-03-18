@@ -7,7 +7,7 @@ const Logout = ({ handleLogout }) => {
   return (
     <GoogleLogout
       clientId={google_clientId}
-      render={() => <span>Logout</span>}
+      render={(props) => <span onClick={props.onClick}>Logout</span>}
       onLogoutSuccess={handleLogout}
     />
   );

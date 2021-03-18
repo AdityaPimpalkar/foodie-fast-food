@@ -55,7 +55,6 @@ export function deleteAddress(addressObj) {}
 export async function getSelectedAddress() {
   const Address = await httpService.get(apiEndpoint, {
     params: {
-      id: "",
       getSelectedAddress: true,
     },
   });
