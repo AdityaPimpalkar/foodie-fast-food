@@ -1,9 +1,5 @@
 import httpService from "./httpService.js";
 import { toast } from "react-toastify";
-import user from "./user.js";
-
-let { addresses } = user;
-
 const apiEndpoint = "http://localhost:3001/api/address";
 
 export async function getAddress() {
@@ -20,10 +16,6 @@ export async function getAddress() {
       }
     });
   return Addresses;
-}
-
-export function getAddressById(addressId) {
-  return addresses.filter((address) => address.id === addressId);
 }
 
 export async function saveAddress(address) {
