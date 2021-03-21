@@ -8,7 +8,10 @@ export async function getOrders() {
 }
 
 export async function createOrder(order) {
-  const orders = await httpService.put(apiEndpoint, order);
+  const orders = await httpService.post(
+    "http://localhost:3001/api/payment/checkout",
+    order
+  );
   return orders;
 }
 

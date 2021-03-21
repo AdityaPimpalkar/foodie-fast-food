@@ -1,40 +1,17 @@
 import httpService from "./httpService.js";
 import { toast } from "react-toastify";
-const apiEndpoint = "http://localhost:3001/api/address";
+import { apiUrl } from "../config.json";
+
+const apiEndpoint = apiUrl + "/address";
 
 export async function getAddress() {
-  const Addresses = await httpService
-    .get(apiEndpoint, {})
-    .then((res) => {
-      if (res.data !== "") return res.data.Addresses;
-      toast.error("Error loading address.");
-      return [];
-    })
-    .catch((error) => {
-      if (error.isAxiosError) {
-        return [];
-      }
-    });
-  return Addresses;
+  const address = await httpService.get(apiEndpoint);
+  return address;
 }
 
-export async function saveAddress(address) {
-  const Address = await httpService
-    .post(`${apiEndpoint}/`, address, {})
-    .then((res) => {
-      if (res.data !== "") {
-        toast.success("Address Updated Successfully!");
-        return res.data.Addresses;
-      }
-      toast.error("Error Saving the address.");
-      return [];
-    })
-    .catch((error) => {
-      if (error.isAxiosError) {
-        return [];
-      }
-    });
-  return Address;
+export async function saveAddress(addressObj) {
+  const address = await httpService.post(`${apiEndpoint}`, addressObj);
+  return address;
 }
 
 export async function updateAddress(addressObj) {
@@ -42,18 +19,35 @@ export async function updateAddress(addressObj) {
   return address;
 }
 
-export function deleteAddress(addressObj) {}
-
-export async function getSelectedAddress() {
-  const Address = await httpService.get(apiEndpoint, {
-    params: {
-      getSelectedAddress: true,
-    },
-  });
-  return Address;
+export async function deleteAddress(addressObj) {
+  try {
+    const address = await httpService.delete(
+      `${apiEndpoint}/${addressObj._id}`
+    );
+    return address;
+  } catch (error) {
+    toast.error("Error deleting the address.");
+  }
 }
 
-export async function changeDeliveryAddress(address) {
-  const Address = await httpService.put(`${apiEndpoint}/${address._id}`);
-  return Address;
+export async function getSelectedAddress() {
+  try {
+    const address = await httpService.get(apiEndpoint, {
+      params: {
+        getSelectedAddress: true,
+      },
+    });
+    return address;
+  } catch (error) {
+    toast.error("Error getting the selected address.");
+  }
+}
+
+export async function changeDeliveryAddress(addressObj) {
+  try {
+    const address = await httpService.put(`${apiEndpoint}/${addressObj._id}`);
+    return address;
+  } catch (error) {
+    toast.error("Error changing delivery address.");
+  }
 }

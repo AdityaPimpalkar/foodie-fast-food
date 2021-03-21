@@ -28,12 +28,13 @@ class Cart extends Component {
     try {
       let products = await getProducts();
       let cart = await getCartItems();
-      let { data: deliveryaddress } = await getSelectedAddress();
-      if (deliveryaddress.Addresses.length > 0) {
-        deliveryaddress = deliveryaddress.Addresses[0];
+      let { data: address } = await getSelectedAddress();
+      if (address.Addresses.length > 0) {
+        let deliveryaddress = address.Addresses[0];
+        this.setState({ deliveryaddress });
       }
       products = this.mapProducts(cart, products);
-      this.setState({ products, cart, deliveryaddress });
+      this.setState({ products, cart });
     } catch (error) {
       toast.error(error.message);
     }
@@ -118,7 +119,7 @@ class Cart extends Component {
             {products.length > 0 ? (
               <React.Fragment>
                 <Address
-                  isdelete={false}
+                  isDelete={false}
                   isSelect={true}
                   selectedAddress={this.changeSelectedAddress}
                 />

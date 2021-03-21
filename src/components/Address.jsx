@@ -2,6 +2,7 @@ import React from "react";
 import Joi from "joi";
 import {
   changeDeliveryAddress,
+  deleteAddress,
   getAddress,
   saveAddress,
   updateAddress,
@@ -29,8 +30,12 @@ class Address extends Form {
     toggleAddress: false,
   };
   async componentDidMount() {
-    let address = await getAddress();
-    this.setState({ address });
+    try {
+      let { data: address } = await getAddress();
+      if (address.Addresses) this.setState({ address: address.Addresses });
+    } catch (error) {
+      toast.error("Error getting addresses.");
+    }
   }
   schema = {
     _id: Joi.string().optional().allow(""),
@@ -48,16 +53,37 @@ class Address extends Form {
     isdefault: Joi.boolean(),
   };
 
+  handleEdit = (address) => {
+    this.toggleOpen();
+    const addressdata = { ...this.state.data };
+    addressdata._id = address._id;
+    addressdata.addressLine1 = address.addressLine1;
+    addressdata.addressLine2 = address.addressLine2;
+    addressdata.landmark = address.landmark;
+    addressdata.city = address.city;
+    addressdata.pincode = address.pincode;
+    addressdata.isdefault = true;
+    this.setState({ data: address, isEdit: true });
+  };
+
   handleSubmit = async (e) => {
     e.preventDefault();
     const errors = this.validate();
     this.setState({ errors: errors || {} });
     if (errors) return;
 
-    const address = await saveAddress(this.state.data);
-    if (this.props.selectedAddress) this.props.selectedAddress(this.state.data);
-    this.setState({ address });
-    this.toggleClose();
+    try {
+      const { data: address } = await saveAddress(this.state.data);
+      if (address.Addresses) {
+        if (this.props.selectedAddress)
+          this.props.selectedAddress(this.state.data);
+        this.setState({ address: address.Addresses });
+        this.toggleClose();
+        toast.success("Address added successfully");
+      }
+    } catch (error) {
+      toast.error("Error saving address!");
+    }
   };
 
   handleUpdate = async (e) => {
@@ -66,10 +92,33 @@ class Address extends Form {
     this.setState({ errors: errors || {} });
     if (errors) return;
 
-    const { data: address } = await updateAddress(this.state.data);
-    if (this.props.selectedAddress) this.props.selectedAddress(this.state.data);
-    this.setState({ address });
-    this.toggleClose();
+    try {
+      const { data: address } = await updateAddress(this.state.data);
+      if (address.Addresses) {
+        if (this.props.selectedAddress)
+          this.props.selectedAddress(this.state.data);
+        this.setState({ address: address.Addresses });
+        this.toggleClose();
+      }
+    } catch (error) {
+      toast.error("Error updating the address.");
+    }
+  };
+
+  handleDelete = async (addressObj) => {
+    try {
+      const { data: address } = await deleteAddress(addressObj);
+      if (address.Addresses) {
+        this.setState({ address: address.Addresses });
+        this.toggleClose();
+      }
+    } catch (error) {
+      toast.error("Error occured!");
+    }
+  };
+
+  toggleOpen = () => {
+    this.setState({ toggleAddress: true });
   };
 
   toggleClose = () => {
@@ -92,15 +141,14 @@ class Address extends Form {
   selectedAddress = async (addressobj) => {
     try {
       let { data: address } = await changeDeliveryAddress(addressobj);
-      if (address) address = address.Addresses;
-      this.setState({ address });
+      if (address.Addresses) this.setState({ address: address.Addresses });
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   render() {
-    const { isSelect, isdelete } = this.props;
+    const { isSelect, isDelete } = this.props;
     const { data, address, isEdit, toggleAddress, errors } = this.state;
     return (
       <Card>
@@ -112,8 +160,9 @@ class Address extends Form {
             addressData={address}
             selectedAddress={this.selectedAddress}
             handleEdit={this.handleEdit}
+            handleDelete={this.handleDelete}
             isSelect={isSelect}
-            isdelete={isdelete}
+            isdelete={true}
           />
         </div>
         {toggleAddress ? (
